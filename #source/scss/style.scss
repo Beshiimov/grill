@@ -42,13 +42,12 @@ main {
     line-height: 25px;
     letter-spacing: 0.15em;
     transition: all .2s ease;
-
-    &:hover {
-      color: rgb(230, 230, 230);
+    color: red;
+    & span {
+      color: yellow;
     }
-
-    &:active {
-      color: #b6b6b6;
+    &:hover {
+      transform: scale(101%);
     }
   }
 }
@@ -415,7 +414,7 @@ main {
 
 /*---about-us------------------*/
 .about {
-  margin-bottom: 50px;
+  @include adaptive-value("margin-bottom", 50, 0, 1);
 }
 
 .about-top {
@@ -527,9 +526,31 @@ main {
   width: 100%;
   max-width: 2560px;
   margin: 0 auto;
-  height: 665px;
+  @include adaptive-value("height", 500, 250, 1);
+  max-height: 50vh;
 }
 
+ymaps {
+  background: #403C3B;
+  font-family: Gilroy;
+  font-size: 20px;
+  color: #fff;
+  font-weight: normal;
+  line-height: 40px;
+  &:hover {
+    background-color: #64605f;
+  }
+  &:focus {
+    background-color: #64605f;
+  }
+}
+
+.ymaps-2-1-79-search__suggest.ymaps-2-1-79-popup.ymaps-2-1-79-popup_theme_ffffff.ymaps-2-1-79-i-custom-scroll {
+  background-color: #64605f;
+  &:focus {
+    background-color: red;
+  }
+}
 
 /*---Media---------------------*/
 @media (max-width: 1023px) {

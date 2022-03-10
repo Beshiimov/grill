@@ -29,31 +29,51 @@ function hamburgerToggle(e) {
   } else {
     menu.textContent = "\u041C\u0415\u041D\u042E";
   }
-}
+} // Функция ymaps.ready() будет вызвана, когда
+// загрузятся все компоненты API, а также когда будет готово DOM-дерево.
 
-ymaps.ready(function () {
-  var myMap = new ymaps.Map('map', {
-    center: [54.187088, 45.183903],
-    zoom: 14
-  }, {
-    searchControlProvider: 'yandex#search'
-  }),
-      // Создаём макет содержимого.
-  MyIconContentLayout = ymaps.templateLayoutFactory.createClass('<div style="color: #000; font-weight: bold;">$[properties.iconContent]</div>'),
-      myPlacemark = new ymaps.Placemark(myMap.getCenter(), {
-    hintContent: 'map-icon',
-    balloonContent: ''
-  }, {
-    // Опции.
-    // Необходимо указать данный тип макета.
-    iconLayout: 'default#image',
-    // Своё изображение иконки метки.
-    iconImageHref: 'images/icon/map-icon.svg',
-    // Размеры метки.
-    iconImageSize: [30, 42],
-    // Смещение левого верхнего угла иконки относительно
-    // её "ножки" (точки привязки).
-    iconImageOffset: [-5, -38]
+
+ymaps.ready(init);
+
+function init() {
+  var suggestView1 = new ymaps.SuggestView('suggest');
+  var arr = ["Саранск, улица"];
+
+  var find = function find(arr, _find) {
+    return arr.filter(function (value) {
+      return (value + "").toLowerCase().indexOf(_find.toLowerCase()) != -1;
+    });
+  };
+
+  var myProvider = {
+    suggest: function suggest(request, options) {
+      var res = find(arr, request),
+          arrayResult = [],
+          results = Math.min(options.results, res.length);
+
+      for (var i = 0; i < results; i++) {
+        arrayResult.push({
+          displayName: res[i],
+          value: res[i]
+        });
+      }
+
+      return ymaps.vow.resolve(arrayResult);
+    }
+  };
+  var suggestView = new ymaps.SuggestView('suggest', {
+    provider: myProvider,
+    results: 3
+  }); // Создание карты.
+
+  var myMap = new ymaps.Map("map", {
+    // Координаты центра карты.
+    // Порядок по умолчанию: «широта, долгота».
+    // Чтобы не определять координаты центра карты вручную,
+    // воспользуйтесь инструментом Определение координат.
+    center: [55.76, 37.64],
+    // Уровень масштабирования. Допустимые значения:
+    // от 0 (весь мир) до 19.
+    zoom: 7
   });
-  myMap.geoObjects.add(myPlacemark);
-});
+}

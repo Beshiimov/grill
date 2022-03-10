@@ -197,12 +197,15 @@ main {
   -webkit-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
+  color: red;
+}
+.header-row .logo span {
+  color: yellow;
 }
 .header-row .logo:hover {
-  color: #e6e6e6;
-}
-.header-row .logo:active {
-  color: #b6b6b6;
+  -webkit-transform: scale(101%);
+      -ms-transform: scale(101%);
+          transform: scale(101%);
 }
 
 .header__center {
@@ -716,6 +719,11 @@ main {
 .about {
   margin-bottom: 50px;
 }
+@media (max-width: 1230px) {
+  .about {
+    margin-bottom: calc(0px + 50 * ((100vw - 320px) / 910));
+  }
+}
 
 .about-top {
   position: relative;
@@ -880,7 +888,35 @@ main {
   width: 100%;
   max-width: 2560px;
   margin: 0 auto;
-  height: 665px;
+  height: 500px;
+  max-height: 50vh;
+}
+@media (max-width: 1230px) {
+  #map {
+    height: calc(250px + 250 * ((100vw - 320px) / 910));
+  }
+}
+
+ymaps {
+  background: #403C3B;
+  font-family: Gilroy;
+  font-size: 20px;
+  color: #fff;
+  font-weight: normal;
+  line-height: 40px;
+}
+ymaps:hover {
+  background-color: #64605f;
+}
+ymaps:focus {
+  background-color: #64605f;
+}
+
+.ymaps-2-1-79-search__suggest.ymaps-2-1-79-popup.ymaps-2-1-79-popup_theme_ffffff.ymaps-2-1-79-i-custom-scroll {
+  background-color: #64605f;
+}
+.ymaps-2-1-79-search__suggest.ymaps-2-1-79-popup.ymaps-2-1-79-popup_theme_ffffff.ymaps-2-1-79-i-custom-scroll:focus {
+  background-color: red;
 }
 
 /*---Media---------------------*/
