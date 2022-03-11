@@ -29,48 +29,50 @@ function hamburgerToggle(e) {
   } else {
     menu.textContent = `МЕНЮ`;
   }
-}
+};
 
 
-// Функция ymaps.ready() будет вызвана, когда
-// загрузятся все компоненты API, а также когда будет готово DOM-дерево.
 ymaps.ready(init);
 function init(){
-    var suggestView1 = new ymaps.SuggestView('suggest');
-    var arr = [
-      "Саранск, улица"
-    ];
-        
-    var find = function (arr, find) {
-      return arr.filter(function (value) {
-          return (value + "").toLowerCase().indexOf(find.toLowerCase()) != -1;
-      });
-    };
-    var myProvider = {
-      suggest: function (request, options) {
-          var res = find(arr, request),
-              arrayResult = [],
-              results = Math.min(options.results, res.length);
-          for (var i = 0; i < results; i++) {
-              arrayResult.push({displayName: res[i], value: res[i]})
-          }
-          return ymaps.vow.resolve(arrayResult);
+  var myMap = new ymaps.Map("map", {
+    center: [54.193686, 45.161103],
+    zoom: 17
+  }, {
+      searchControlProvider: 'yandex#search'
+  }),
+  myPlacemark = new ymaps.Placemark([54.193686, 45.161103], {
+    // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
+    balloonContentHeader: "#ГРИЛЛЬ экспресс",
+    balloonContentBody: "улица Титова, 10с1",
+    balloonContentFooter: "Мы здесь",
+    hintContent: "Посмотреть адресс",
+    size: 400,
+  }); myMap.geoObjects.add(myPlacemark);
+
+
+
+
+//вывод запросов
+  var suggestView1 = new ymaps.SuggestView('suggest');
+  var arr = [
+    "Саранск, улица"
+  ];
+      
+  var find = function (arr, find) {
+    return arr.filter(function (value) {
+      return (value + "").toLowerCase().indexOf(find.toLowerCase()) != -1;
+    });
+  };
+  var myProvider = {
+    suggest: function (request, options) {
+      var res = find(arr, request),
+        arrayResult = [],
+        results = Math.min(options.results, res.length);
+      for (var i = 0; i < results; i++) {
+        arrayResult.push({displayName: res[i], value: res[i]})
       }
+      return ymaps.vow.resolve(arrayResult);
     }
-
-    var suggestView = new ymaps.SuggestView('suggest', {provider: myProvider, results: 3});
-
-
-
-    // Создание карты.
-    var myMap = new ymaps.Map("map", {
-        // Координаты центра карты.
-        // Порядок по умолчанию: «широта, долгота».
-        // Чтобы не определять координаты центра карты вручную,
-        // воспользуйтесь инструментом Определение координат.
-        center: [55.76, 37.64],
-        // Уровень масштабирования. Допустимые значения:
-        // от 0 (весь мир) до 19.
-        zoom: 7
-      });
-}
+  }
+  var suggestView = new ymaps.SuggestView('suggest', {provider: myProvider, results: 3});
+};

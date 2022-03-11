@@ -897,7 +897,9 @@ main {
   }
 }
 
-ymaps {
+.ymaps-2-1-79-search__suggest.ymaps-2-1-79-popup.ymaps-2-1-79-popup_theme_ffffff.ymaps-2-1-79-i-custom-scroll {
+  width: 90%;
+  background-color: #64605f;
   background: #403C3B;
   font-family: Gilroy;
   font-size: 20px;
@@ -905,18 +907,14 @@ ymaps {
   font-weight: normal;
   line-height: 40px;
 }
-ymaps:hover {
-  background-color: #64605f;
+.ymaps-2-1-79-search__suggest.ymaps-2-1-79-popup.ymaps-2-1-79-popup_theme_ffffff.ymaps-2-1-79-i-custom-scroll:focus {
+  background-color: red;
 }
-ymaps:focus {
-  background-color: #64605f;
-}
-
-.ymaps-2-1-79-search__suggest.ymaps-2-1-79-popup.ymaps-2-1-79-popup_theme_ffffff.ymaps-2-1-79-i-custom-scroll {
+.ymaps-2-1-79-search__suggest.ymaps-2-1-79-popup.ymaps-2-1-79-popup_theme_ffffff.ymaps-2-1-79-i-custom-scroll:hover {
   background-color: #64605f;
 }
 .ymaps-2-1-79-search__suggest.ymaps-2-1-79-popup.ymaps-2-1-79-popup_theme_ffffff.ymaps-2-1-79-i-custom-scroll:focus {
-  background-color: red;
+  background-color: #64605f;
 }
 
 /*---Media---------------------*/

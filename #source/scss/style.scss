@@ -530,7 +530,13 @@ main {
   max-height: 50vh;
 }
 
-ymaps {
+.ymaps-2-1-79-search__suggest.ymaps-2-1-79-popup.ymaps-2-1-79-popup_theme_ffffff.ymaps-2-1-79-i-custom-scroll {
+  width: 90%;
+
+  background-color: #64605f;
+  &:focus {
+    background-color: red;
+  }
   background: #403C3B;
   font-family: Gilroy;
   font-size: 20px;
@@ -544,14 +550,6 @@ ymaps {
     background-color: #64605f;
   }
 }
-
-.ymaps-2-1-79-search__suggest.ymaps-2-1-79-popup.ymaps-2-1-79-popup_theme_ffffff.ymaps-2-1-79-i-custom-scroll {
-  background-color: #64605f;
-  &:focus {
-    background-color: red;
-  }
-}
-
 /*---Media---------------------*/
 @media (max-width: 1023px) {
   .call {

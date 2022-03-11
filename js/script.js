@@ -29,13 +29,28 @@ function hamburgerToggle(e) {
   } else {
     menu.textContent = "\u041C\u0415\u041D\u042E";
   }
-} // Функция ymaps.ready() будет вызвана, когда
-// загрузятся все компоненты API, а также когда будет готово DOM-дерево.
+}
 
-
+;
 ymaps.ready(init);
 
 function init() {
+  var myMap = new ymaps.Map("map", {
+    center: [54.193686, 45.161103],
+    zoom: 17
+  }, {
+    searchControlProvider: 'yandex#search'
+  }),
+      myPlacemark = new ymaps.Placemark([54.193686, 45.161103], {
+    // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
+    balloonContentHeader: "#ГРИЛЛЬ экспресс",
+    balloonContentBody: "улица Титова, 10с1",
+    balloonContentFooter: "Мы здесь",
+    hintContent: "Посмотреть адресс",
+    size: 400
+  });
+  myMap.geoObjects.add(myPlacemark); //вывод запросов
+
   var suggestView1 = new ymaps.SuggestView('suggest');
   var arr = ["Саранск, улица"];
 
@@ -64,16 +79,7 @@ function init() {
   var suggestView = new ymaps.SuggestView('suggest', {
     provider: myProvider,
     results: 3
-  }); // Создание карты.
-
-  var myMap = new ymaps.Map("map", {
-    // Координаты центра карты.
-    // Порядок по умолчанию: «широта, долгота».
-    // Чтобы не определять координаты центра карты вручную,
-    // воспользуйтесь инструментом Определение координат.
-    center: [55.76, 37.64],
-    // Уровень масштабирования. Допустимые значения:
-    // от 0 (весь мир) до 19.
-    zoom: 7
   });
 }
+
+;
