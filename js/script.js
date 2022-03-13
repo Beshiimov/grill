@@ -83,3 +83,9 @@ function init() {
 }
 
 ;
+document.querySelectorAll(".scroll-up")[(0, 1)].addEventListener("click", function () {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});

@@ -76,3 +76,11 @@ function init(){
   }
   var suggestView = new ymaps.SuggestView('suggest', {provider: myProvider, results: 3});
 };
+
+
+document.querySelectorAll(`.scroll-up`)[0, 1].addEventListener(`click`, () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+});
