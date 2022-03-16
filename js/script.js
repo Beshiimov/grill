@@ -3,17 +3,17 @@
 var swiper = new Swiper('.swiper', {
   speed: 2000,
   spaceBetween: 15,
-  loop: true,
+  // loop: true,
   loopFillGroupWithBlank: true,
   centeredSlides: true,
   slidesPerView: "auto",
   longSwipesMs: 3000,
   touchRatio: 0.5,
-  autoHeight: true,
-  autoplay: {
-    delay: 5000,
-    pauseOnMouseEnter: true
-  }
+  autoHeight: true // autoplay: {
+  //   delay: 5000,
+  //   pauseOnMouseEnter: true,
+  // },
+
 });
 var hamburger = document.querySelector(".hamb");
 var popup = document.querySelector(".popup");
@@ -83,9 +83,37 @@ function init() {
 }
 
 ;
-document.querySelectorAll(".scroll-up")[(0, 1)].addEventListener("click", function () {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+var scrollUp = document.querySelectorAll(".scroll-up");
+scrollUp.forEach(function (item) {
+  item.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   });
 });
+
+function basketCalc() {
+  var basket = document.querySelectorAll("button.basket__default");
+  var quantity = 0;
+  basket.forEach(function (item) {
+    item.addEventListener("click", function () {
+      if (quantity == 0 || "") {
+        var basketMain = item.closest(".snacks");
+        var minus = basketMain.querySelector(".minus");
+        var plus = basketMain.querySelector(".plus");
+        var price = basketMain.querySelector(".snacks__price");
+        var snacksQuantity = basketMain.querySelector(".snacks-quantity");
+        snacksQuantity.classList.add("_active");
+        price.classList.add("_active");
+        item.style.display = "none";
+        minus.style.display = "block";
+        plus.style.display = "block";
+      } else if (quantity > 0) {} // else item.style.display = `inline-block`;
+
+    });
+  });
+}
+
+;
+basketCalc();

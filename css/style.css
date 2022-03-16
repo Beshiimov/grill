@@ -566,13 +566,14 @@ main {
 }
 
 .swiper {
+  padding-top: 10px;
   width: 100%;
-  height: 440px;
+  height: 450px;
   padding-bottom: 50px;
 }
 @media (max-width: 1230px) {
   .swiper {
-    height: calc(420px + 20 * ((100vw - 320px) / 910));
+    height: calc(430px + 20 * ((100vw - 320px) / 910));
   }
 }
 @media (max-width: 1230px) {
@@ -647,6 +648,7 @@ main {
 }
 
 .snacks__about {
+  cursor: default;
   font-size: 13px;
   line-height: 17px;
   color: #CFCFCF;
@@ -665,6 +667,19 @@ main {
   box-orient: vertical;
 }
 
+.snacks__buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
 .snacks__price {
   position: absolute;
   bottom: 18px;
@@ -675,18 +690,19 @@ main {
 .snacks__price::after {
   content: "₽";
 }
+.snacks__price._active {
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
 
 .snacks__basket {
-  position: absolute;
-  bottom: 8px;
-  right: 16px;
   padding: 10px 13px 10px 19px;
   background: -o-linear-gradient(335.07deg, #618967 5.11%, #72A479 94%);
   background: linear-gradient(114.93deg, #618967 5.11%, #72A479 94%);
   border-radius: 10px;
   color: #fff;
-  height: 44px;
-  width: 137px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -713,6 +729,21 @@ main {
      object-fit: contain;
 }
 
+.basket__default {
+  height: 44px;
+  width: 137px;
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+
+.minus, .plus {
+  padding: 0 22px;
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+}
+
 .snacks__mass {
   position: absolute;
   top: 22px;
@@ -725,6 +756,19 @@ main {
 }
 .snacks__mass::after {
   content: " г";
+}
+
+.snacks-quantity._active {
+  text-align: center;
+  line-height: 50px;
+  background-color: #79B282;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-weight: bold;
 }
 
 /*---about-us------------------*/

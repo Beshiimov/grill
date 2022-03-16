@@ -1,17 +1,17 @@
 const swiper = new Swiper('.swiper', {
   speed: 2000,
   spaceBetween: 15,
-  loop: true,
+  // loop: true,
   loopFillGroupWithBlank: true,
   centeredSlides: true,
   slidesPerView: "auto",
   longSwipesMs: 3000,
   touchRatio: 0.5,
   autoHeight: true,
-  autoplay: {
-    delay: 5000,
-    pauseOnMouseEnter: true,
-  }
+  // autoplay: {
+  //   delay: 5000,
+  //   pauseOnMouseEnter: true,
+  // },
 });
 
 
@@ -78,9 +78,44 @@ function init(){
 };
 
 
-document.querySelectorAll(`.scroll-up`)[0, 1].addEventListener(`click`, () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
+const scrollUp = document.querySelectorAll(`.scroll-up`);
+
+scrollUp.forEach(item => {
+  item.addEventListener(`click`, () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   });
 });
+
+
+
+function basketCalc () {
+  const basket = document.querySelectorAll(`button.basket__default`);
+  let quantity = 0;
+  
+  basket.forEach(item => {
+    item.addEventListener(`click`, () => {
+      if (quantity == 0 || ``) {
+        const basketMain = item.closest(`.snacks`);
+        const minus = basketMain.querySelector(`.minus`);
+        const plus = basketMain.querySelector(`.plus`);
+        const price = basketMain.querySelector(`.snacks__price`);
+        const snacksQuantity = basketMain.querySelector(`.snacks-quantity`);
+
+
+        snacksQuantity.classList.add(`_active`);
+        price.classList.add(`_active`);
+        item.style.display = `none`;
+        minus.style.display = `block`;
+        plus.style.display = `block`;
+      } else if (quantity > 0) {
+        
+      }
+      // else item.style.display = `inline-block`;
+    });
+  });
+};
+
+basketCalc();

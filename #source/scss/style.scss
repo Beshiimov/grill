@@ -299,8 +299,9 @@ main {
 }
 
 .swiper {
+  padding-top: 10px;
   width: 100%;
-  @include adaptive-value("height",440, 420, 1);
+  @include adaptive-value("height",450, 430, 1);
   @include adaptive-value("padding-bottom", 50, 40, 1);
 }
 
@@ -333,7 +334,6 @@ main {
   & a img {
     border-radius: 10px 10px 0 0;
   }
-
 }
 
 .snacks__body {
@@ -349,6 +349,7 @@ main {
 
 }
 .snacks__about {
+  cursor: default;
   font-size: 13px;
   line-height: 17px;
   color: #CFCFCF;
@@ -366,6 +367,12 @@ main {
   -webkit-box-orient: vertical;
   box-orient: vertical;
 }
+
+.snacks__buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
 .snacks__price {
   position: absolute;
   bottom: 18px;
@@ -375,18 +382,17 @@ main {
   &::after {
     content: "₽";
   }
+  &._active {
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 
 .snacks__basket {
-  position: absolute;
-  bottom: 8px;
-  right: 16px;
   padding: 10px 13px 10px 19px;
   background: linear-gradient(114.93deg, #618967 5.11%, #72A479 94%);
   border-radius: 10px;
   color: #fff;
-  height: 44px;
-  width: 137px;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -405,6 +411,23 @@ main {
     }
   }
 }
+
+.basket__default {
+  height: 44px;
+  width: 137px;
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+
+.minus, .plus {
+  padding: 0 22px;
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
 .snacks__mass{
   position: absolute;
   top: 22px;
@@ -419,6 +442,18 @@ main {
   }
 }
 
+.snacks-quantity._active {
+  text-align: center;
+  line-height: 50px;
+  background-color: #79B282;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top:-10px;
+  right: -10px;
+  font-weight: bold;
+}
 
 /*---about-us------------------*/
 .about {
