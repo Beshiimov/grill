@@ -3,17 +3,17 @@ var __webpack_exports__ = {};
 var swiper = new Swiper('.swiper', {
   speed: 2000,
   spaceBetween: 15,
-  loopFillGroupWithBlank: true,
+  // loopFillGroupWithBlank: true,
   slidesPerView: "auto",
-  longSwipesMs: 3000,
+  longSwipesMs: 300,
   touchRatio: 0.5,
   autoHeight: true,
   loop: true,
-  centeredSlides: true,
-  autoplay: {
-    delay: 5000,
-    pauseOnMouseEnter: true
-  }
+  centeredSlides: true // autoplay: {
+  //   delay: 5000,
+  //   pauseOnMouseEnter: true,
+  // },
+
 });
 var hamburger = document.querySelector(".hamb");
 var popup = document.querySelector(".popup");
@@ -96,7 +96,7 @@ scrollUp.forEach(function (item) {
 function basketCalc() {
   var basket = document.querySelectorAll("button.basket__default");
   basket.forEach(function (item) {
-    var quantity = 0;
+    var quantity = 1;
     var basketMain = item.closest(".snacks");
     var basketCenter = basketMain.querySelector(".basket__default");
     var minus = basketMain.querySelector(".minus");
@@ -104,30 +104,33 @@ function basketCalc() {
     var price = basketMain.querySelector(".snacks__price");
     var snacksQuantity = basketMain.querySelector(".snacks-quantity");
     item.addEventListener("click", function () {
-      ++quantity;
+      priceNew = price.textContent;
       price.classList.add("_active");
       basketCenter.style.display = "none";
       minus.style.display = "block";
       plus.style.display = "block";
-      snacksQuantity.classList.add("_active");
       snacksQuantity.style.display = "inline-block";
+      snacksQuantity.classList.add("_active");
       snacksQuantity.textContent = quantity;
-      plus.addEventListener("click", function () {
-        ++quantity;
-        snacksQuantity.textContent = quantity;
-      });
-      minus.addEventListener("click", function () {
+    });
+    plus.addEventListener("click", function () {
+      ++quantity;
+      snacksQuantity.textContent = quantity;
+      price.textContent = priceNew * quantity;
+    });
+    minus.addEventListener("click", function () {
+      if (quantity > 1) {
         --quantity;
         snacksQuantity.textContent = quantity;
-
-        if (quantity == 0) {
-          price.classList.remove("_active");
-          basketCenter.style.display = "inline-flex";
-          minus.style.display = "none";
-          plus.style.display = "none";
-          snacksQuantity.style.display = "none";
-        }
-      });
+        price.textContent = priceNew * quantity;
+      } else if (quantity <= 1) {
+        price.classList.remove("_active");
+        basketCenter.style.display = "inline-flex";
+        minus.style.display = "none";
+        plus.style.display = "none";
+        snacksQuantity.style.display = "none";
+        snacksQuantity.classList.remove("_active");
+      }
     });
   });
 }
