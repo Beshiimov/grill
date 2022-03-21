@@ -68,7 +68,7 @@ basketButton.addEventListener(`click`, () => {
     const cartItemTemplate = `
       <div class="product">
         <div class="product__img">
-            <img src="/img/cold-snacks/cold-snacks-3.jpg" alt="фото товара">
+            <img src="img/cold-snacks/cold-snacks-3.jpg" alt="фото товара">
         </div>
         <div class="product__body">
             <div class="snacks__title product__title">
