@@ -6,22 +6,25 @@ const swiper = new Swiper('.swiper', {
   longSwipesMs: 300,
   touchRatio: 0.5,
   autoHeight: true,
-  loop: true,
-  centeredSlides: true,
+  // loop: true,
+  // centeredSlides: true,
   // autoplay: {
   //   delay: 5000,
   //   pauseOnMouseEnter: true,
   // },
 });
 
+function scrollBlock () {
+  const body = document.querySelector(`body`);
+  body.classList.toggle(`_scroll-block`);
+};
+
 
 const hamburger = document.querySelector(`.hamb`);
 const popup = document.querySelector(`.popup`);
 const menu = document.querySelector(`.menu`);
 
-hamburger.addEventListener(`click`, hamburgerToggle);
-
-function hamburgerToggle(e) {
+hamburger.addEventListener(`click`, () => {
   popup.classList.toggle(`_active`);
   hamburger.classList.toggle(`_active`);
   if (menu.textContent == `МЕНЮ`) {
@@ -29,7 +32,108 @@ function hamburgerToggle(e) {
   } else {
     menu.textContent = `МЕНЮ`;
   }
-};
+  scrollBlock();
+});
+
+
+
+
+const scrollUp = document.querySelectorAll(`.scroll-up`);
+
+scrollUp.forEach(item => {
+  item.addEventListener(`click`, () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+});
+
+
+const basketButton = document.querySelector(`.basket-button`);
+
+basketButton.addEventListener(`click`, () => {
+  const basketWindow = document.querySelector(`.basket`);
+  // scrollBlock();
+  basketWindow.classList.toggle(`_active`);
+});
+
+
+(function () {
+  const cartDOMElement = document.querySelector(`.basket-products`)
+  const cart = {};
+
+  const renderCartItem = (data) => {
+    const cartItemDOMElement = document.createElement(`div`);
+    const cartItemTemplate = `
+      <div class="product">
+        <div class="product__img">
+            <img src="/img/cold-snacks/cold-snacks-3.jpg" alt="фото товара">
+        </div>
+        <div class="product__body">
+            <div class="snacks__title product__title">
+                ПИЦЦА ДВОЙНАЯ ПЕППЕРОНИ
+            </div>
+            <p class="product__about">
+                Кальмары, мидии, креветки, сыр маасдам, 
+                красный лук, микс оливок, базилик, соус песто
+            </p>
+        </div>
+        <div class="product-edit">
+            <button class="minus">-</button>
+            <div class="quantity">
+                1
+            </div>
+            <button class="plus">+</button>
+        </div>
+        <div class="product-price">
+            <div class="snacks__price">162</div>
+            <button class="product-delete">X</button>
+        </div>
+      </div>
+    `;
+    cartItemDOMElement.innerHTML = cartItemTemplate;
+
+    cartDOMElement.appendChild(cartItemDOMElement);
+  };
+
+  const addCartItem = (data) => {
+    const {
+      productName
+    } = data;
+    cart[productName] = data;
+    renderCartItem(data);
+  };
+
+  const getProductData = (product) => {
+    const productName = product.querySelector(`.snacks__title`).textContent;
+    const productPrice = +product.querySelector(`.snacks__price`).textContent;
+    const src = product.querySelector('img').getAttribute('src');
+    const quantity = 1;
+    return {
+      productName,
+      productPrice,
+      src,
+      quantity
+    };
+  };
+
+  const cartInit = () => {
+    addEventListener(`click`, e => {
+      const target = e.target;
+
+      if (target.classList.contains(`basketDefault`)) {
+        e.preventDefault();
+        const product = target.closest(`.snacks`);
+        const data = getProductData(product);
+        addCartItem(data);
+      };
+    });
+  };
+  cartInit();
+
+})();
+
 
 
 ymaps.ready(init);
@@ -51,97 +155,36 @@ function init() {
     });
   myMap.geoObjects.add(myPlacemark);
 
-
-
-
-  //вывод запросов
-  var suggestView1 = new ymaps.SuggestView('suggest');
-  var arr = [
-    "Саранск, улица"
-  ];
-
-  var find = function (arr, find) {
-    return arr.filter(function (value) {
-      return (value + "").toLowerCase().indexOf(find.toLowerCase()) != -1;
-    });
   };
-  var myProvider = {
-    suggest: function (request, options) {
-      var res = find(arr, request),
-        arrayResult = [],
-        results = Math.min(options.results, res.length);
-      for (var i = 0; i < results; i++) {
-        arrayResult.push({
-          displayName: res[i],
-          value: res[i]
-        })
-      }
-      return ymaps.vow.resolve(arrayResult);
-    }
-  }
-  var suggestView = new ymaps.SuggestView('suggest', {
-    provider: myProvider,
-    results: 3
-  });
-};
 
 
-const scrollUp = document.querySelectorAll(`.scroll-up`);
+//   //вывод запросов
+//   var suggestView1 = new ymaps.SuggestView('suggest');
+//   var arr = [
+//     "Саранск, улица"
+//   ];
 
-scrollUp.forEach(item => {
-  item.addEventListener(`click`, () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  });
-});
-
-
-
-function basketCalc() {
-  const basket = document.querySelectorAll(`button.basket__default`);
-  basket.forEach(item => {
-    let quantity = 1;
-    const basketMain = item.closest(`.snacks`);
-    const basketCenter = basketMain.querySelector(`.basket__default`)
-    const minus = basketMain.querySelector(`.minus`);
-    const plus = basketMain.querySelector(`.plus`);
-    const price = basketMain.querySelector(`.snacks__price`);
-    const snacksQuantity = basketMain.querySelector(`.snacks-quantity`);
-
-    item.addEventListener(`click`, () => {
-      priceNew = price.textContent;
-      price.classList.add(`_active`);
-      basketCenter.style.display = `none`;
-      minus.style.display = `block`;
-      plus.style.display = `block`;
-      snacksQuantity.style.display = `inline-block`;
-      snacksQuantity.classList.add(`_active`);
-      snacksQuantity.textContent = quantity;
-
-    });
-    plus.addEventListener(`click`, () => {
-      ++quantity;
-      snacksQuantity.textContent = quantity;
-      price.textContent = priceNew * quantity;
-    });
-    
-    minus.addEventListener(`click`, () => {
-      if (quantity > 1) {
-        --quantity;
-        snacksQuantity.textContent = quantity;
-        price.textContent = priceNew * quantity;
-      }
-      else if (quantity <= 1) {
-        price.classList.remove(`_active`);
-        basketCenter.style.display = `inline-flex`;
-        minus.style.display = `none`;
-        plus.style.display = `none`;
-        snacksQuantity.style.display = `none`;
-        snacksQuantity.classList.remove(`_active`);
-      }
-    });
-  });
-};
-basketCalc();
+//   var find = function (arr, find) {
+//     return arr.filter(function (value) {
+//       return (value + "").toLowerCase().indexOf(find.toLowerCase()) != -1;
+//     });
+//   };
+//   var myProvider = {
+//     suggest: function (request, options) {
+//       var res = find(arr, request),
+//         arrayResult = [],
+//         results = Math.min(options.results, res.length);
+//       for (var i = 0; i < results; i++) {
+//         arrayResult.push({
+//           displayName: res[i],
+//           value: res[i]
+//         })
+//       }
+//       return ymaps.vow.resolve(arrayResult);
+//     }
+//   }
+//   var suggestView = new ymaps.SuggestView('suggest', {
+//     provider: myProvider,
+//     results: 3
+//   });
+// };

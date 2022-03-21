@@ -8,6 +8,7 @@
     <title>#Гриль Экспресс</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/icon/logo_transparent.png" type="image/x-icon">
 
     <meta name="description" content="Доставка вкуснейших блюд за 60 минут">
     <meta name="keywords" content="#Гриль, Грил саранск, достака шаурмы саранск, Гриль экспресс, гамбургер сарсанск доставка">
@@ -22,6 +23,7 @@
 </head>
 
 <body>
+    
 <header class="header">
   <div class="header-row container">
     <div class="hamb">
@@ -32,7 +34,7 @@
       #ГРИЛЛЬ <br><span> экспресс</span>
     </a>
     <div class="header__center">
-      <div class="header__search">
+      <!-- <div class="header__search">
         <a href="#">
           <img src="img/icon/Location.svg" alt="Location">
         </a>
@@ -40,7 +42,7 @@
         <a href="#">
           <img src="img/icon/Search.svg" alt="Search">
         </a>
-      </div>
+      </div> -->
       <div class="call">
         <a class="call__icon" href="tel:+7900123456">
           <img src="img/icon/Calling.svg" alt="call">
@@ -51,12 +53,12 @@
         </a>
       </div>
     </div>
-    <a href="#" class="basket">
+    <button class="basket-button">
       <p>Корзина</p>
       <span></span>
       <img src="img/icon/Buy.svg" alt="Buy">
       <p class="basket-quantity">0</p>
-    </a>
+    </button>
   </div>
   <div class="popup">
     <div class="call">
@@ -99,7 +101,7 @@
                             <img src="img/cold-snacks/cold-snacks-1.jpg" alt="cold-snack">
                         </a>
                         <div class="snacks__body">
-                            <h3 class="snacks__title">Яненок</h3>
+                            <h3 class="snacks__title">Ягненок</h3>
                             <p class="snacks__about">
                                 Фаршированный гречневой кашей,
                                 курагой, апельсином и зеленым яблоком
@@ -108,10 +110,10 @@
                                 <span class="snacks__price">
                                     620
                                 </span>
-                                <button class="snacks__basket basket__default">
-                                    <span>В корзину</span>
-                                    <div class="basket__icon">
-                                        <img src="img/icon/Buy.svg" alt="Buy">
+                                <button class="snacks__basket basket__default basketDefault">
+                                    <span class="basketDefault">В корзину</span>
+                                    <div class="basket__icon basketDefault">
+                                        <img class="basketDefault" src="img/icon/Buy.svg" alt="Buy">
                                     </div>
                                 </button>
                                 <button class="snacks__basket minus" style="display: none;">-</button>
@@ -128,7 +130,7 @@
                             <img src="img/cold-snacks/cold-snacks-1.jpg" alt="cold-snack">
                         </a>
                         <div class="snacks__body">
-                            <h3 class="snacks__title">Яненок</h3>
+                            <h3 class="snacks__title">Гусь</h3>
                             <p class="snacks__about">
                                 Фаршированный гречневой кашей,
                                 курагой, апельсином и зеленым яблоком
@@ -137,10 +139,10 @@
                                 <span class="snacks__price">
                                     500
                                 </span>
-                                <button class="snacks__basket basket__default">
-                                    <span>В корзину</span>
-                                    <div class="basket__icon">
-                                        <img src="img/icon/Buy.svg" alt="Buy">
+                                <button class="snacks__basket basket__default basketDefault">
+                                    <span class="basketDefault">В корзину</span>
+                                    <div class="basket__icon basketDefault">
+                                        <img class="basketDefault" src="img/icon/Buy.svg" alt="Buy">
                                     </div>
                                 </button>
                                 <button class="snacks__basket minus" style="display: none;">-</button>
@@ -157,7 +159,7 @@
                             <img src="img/cold-snacks/cold-snacks-1.jpg" alt="cold-snack">
                         </a>
                         <div class="snacks__body">
-                            <h3 class="snacks__title">Яненок</h3>
+                            <h3 class="snacks__title">Бургер</h3>
                             <p class="snacks__about">
                                 Фаршированный гречневой кашей,
                                 курагой, апельсином и зеленым яблоком
@@ -166,17 +168,17 @@
                                 <span class="snacks__price">
                                     100
                                 </span>
-                                <button class="snacks__basket basket__default">
-                                    <span>В корзину</span>
-                                    <div class="basket__icon">
-                                        <img src="img/icon/Buy.svg" alt="Buy">
+                                <button class="snacks__basket basket__default basketDefault">
+                                    <span class="basketDefault">В корзину</span>
+                                    <div class="basket__icon basketDefault">
+                                        <img class="basketDefault" src="img/icon/Buy.svg" alt="Buy">
                                     </div>
                                 </button>
                                 <button class="snacks__basket minus" style="display: none;">-</button>
                                 <button class="snacks__basket plus" style="display: none;">+</button>
                             </div>
                             <p class="snacks__mass">
-                                225
+                                150
                             </p>
                         </div>
                         <div class="snacks-quantity"></div>
@@ -184,220 +186,6 @@
                 </div>
             </div>
         </section>
-        <!-- <section class="snack">
-            <h2 class="h2 container">
-                <span></span> ГОРЯЧИЕ ЗАКУСКИ
-            </h2>
-            <div class="swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide snacks">
-                        <a href ="">
-                            <img src="img/hot-snacks/hot-snacks-1.jpg" alt="hot-snack">
-                        </a>
-                        <div class="snacks__body">
-                            <h3 class="snacks__title">Яненок</h3>
-                            <p class="snacks__about">
-                                Фаршированный гречневой кашей,
-                                курагой, апельсином и зеленым яблоком
-                            </p>
-                            <span class="snacks__price">
-                                620
-                            </span>
-                            <button class="snacks__basket">
-                                <span>В корзину</span>
-                                <div class="basket__icon">
-                                    <img src="img/icon/Buy.svg" alt="Buy">
-                                </div>
-                            </button>
-                            <p class="snacks__mass">
-                                225
-                            </p>
-                        </div>
-                        <span class="snacks-quantity"></span>
-                    </div>
-                    <div class="swiper-slide snacks">
-                        <a href ="">
-                            <img src="img/hot-snacks/hot-snacks-2.jpg" alt="hot-snack">
-                        </a>
-                        <div class="snacks__body">
-                            <h3 class="snacks__title">Индейка</h3>
-                            <p class="snacks__about">
-                                Фаршированный гречневой кашей,
-                                курагой, апельсином и зеленым яблоком
-                            </p>
-                            <span class="snacks__price">
-                                620
-                            </span>
-                            <button class="snacks__basket">
-                                <span>В корзину</span>
-                                <div class="basket__icon">
-                                    <img src="img/icon/Buy.svg" alt="Buy">
-                                </div>
-                            </button>
-                            <p class="snacks__mass">
-                                225
-                            </p>
-                        </div>
-                        <span class="snacks-quantity"></span>
-                    </div>
-                    <div class="swiper-slide snacks">
-                        <a href ="">
-                            <img src="img/hot-snacks/hot-snacks-3.jpg" alt="hot-snack">
-                        </a>
-                        <div class="snacks__body">
-                            <h3 class="snacks__title">Гусь</h3>
-                            <p class="snacks__about">
-                                Фаршированный яблоками
-                            </p>
-                            <span class="snacks__price">
-                                620
-                            </span>
-                            <button class="snacks__basket">
-                                <span>В корзину</span>
-                                <div class="basket__icon">
-                                    <img src="img/icon/Buy.svg" alt="Buy">
-                                </div>
-                            </button>
-                            <p class="snacks__mass">
-                                225
-                            </p>
-                        </div>
-                        <span class="snacks-quantity"></span>
-                    </div>
-                    <div class="swiper-slide snacks">
-                        <a href ="">
-                            <img src="img/hot-snacks/hot-snacks-4.jpg" alt="hot-snack">
-                        </a>
-                        <div class="snacks__body">
-                            <h3 class="snacks__title">Утка</h3>
-                            <p class="snacks__about">
-                                Фаршированная рисом, курагой и айвой
-                            </p>
-                            <span class="snacks__price">
-                                620
-                            </span>
-                            <button class="snacks__basket">
-                                <span>В корзину</span>
-                                <div class="basket__icon">
-                                    <img src="img/icon/Buy.svg" alt="Buy">
-                                </div>
-                            </button>
-                            <p class="snacks__mass">
-                                225
-                            </p>
-                        </div>
-                        <span class="snacks-quantity"></span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="snack">
-            <h2 class="h2 container">
-                <span></span> Мясные блюда
-            </h2>
-            <div class="swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide snacks">
-                        <a href ="">
-                            <img src="img/meat-snacks/meat-snacks-1.jpg" alt="cold-snack">
-                        </a>
-                        <div class="snacks__body">
-                            <h3 class="snacks__title">Яненок</h3>
-                            <p class="snacks__about">
-                                Фаршированный гречневой кашей,
-                                курагой, апельсином и зеленым яблоком
-                            </p>
-                            <span class="snacks__price">
-                                620
-                            </span>
-                            <button class="snacks__basket">
-                                <span>В корзину</span>
-                                <div class="basket__icon">
-                                    <img src="img/icon/Buy.svg" alt="Buy">
-                                </div>
-                            </button>
-                            <p class="snacks__mass">
-                                225
-                            </p>
-                        </div>
-                        <span class="snacks-quantity"></span>
-                    </div>
-                    <div class="swiper-slide snacks">
-                        <a href ="">
-                            <img src="img/meat-snacks/meat-snacks-2.jpg" alt="cold-snack">
-                        </a>
-                        <div class="snacks__body">
-                            <h3 class="snacks__title">Индейка</h3>
-                            <p class="snacks__about">
-                                Фаршированный гречневой кашей,
-                                курагой, апельсином и зеленым яблоком
-                            </p>
-                            <span class="snacks__price">
-                                620
-                            </span>
-                            <button class="snacks__basket">
-                                <span>В корзину</span>
-                                <div class="basket__icon">
-                                    <img src="img/icon/Buy.svg" alt="Buy">
-                                </div>
-                            </button>
-                            <p class="snacks__mass">
-                                225
-                            </p>
-                        </div>
-                        <span class="snacks-quantity"></span>
-                    </div>
-                    <div class="swiper-slide snacks">
-                        <a href ="">
-                            <img src="img/meat-snacks/meat-snacks-3.jpg" alt="cold-snack">
-                        </a>
-                        <div class="snacks__body">
-                            <h3 class="snacks__title">Гусь</h3>
-                            <p class="snacks__about">
-                                Фаршированный яблоками
-                            </p>
-                            <span class="snacks__price">
-                                620
-                            </span>
-                            <button class="snacks__basket">
-                                <span>В корзину</span>
-                                <div class="basket__icon">
-                                    <img src="img/icon/Buy.svg" alt="Buy">
-                                </div>
-                            </button>
-                            <p class="snacks__mass">
-                                225
-                            </p>
-                        </div>
-                        <span class="snacks-quantity"></span>
-                    </div>
-                    <div class="swiper-slide snacks">
-                        <a href ="">
-                            <img src="img/meat-snacks/meat-snacks-4.jpg" alt="cold-snack">
-                        </a>
-                        <div class="snacks__body">
-                            <h3 class="snacks__title">Утка</h3>
-                            <p class="snacks__about">
-                                Фаршированная рисом, курагой и айвой
-                            </p>
-                            <span class="snacks__price">
-                                620
-                            </span>
-                            <button class="snacks__basket">
-                                <span>В корзину</span>
-                                <div class="basket__icon">
-                                    <img src="img/icon/Buy.svg" alt="Buy">
-                                </div>
-                            </button>
-                            <p class="snacks__mass">
-                                225
-                            </p>
-                        </div>
-                        <span class="snacks-quantity"></span>
-                    </div>
-                </div>
-            </div>
-        </section> -->
         <section class="about">
             <div class="about-top">
                 <div class="about-us">
@@ -440,7 +228,7 @@
                         </div>
                         <div class="blocks__item">
                             <svg width="61" height="61" viewBox="0 0 61 61" fill="red" xmlns="http://www.w3.org/2000/svg">
-                                <g clip-path="url(#clip0_31_25)">
+                                <g clip-path="url(#clip0_31_25)"></g>
                                 <path d="M16.6364 29.1137C16.6364 28.3474 16.0163 27.7273 15.25 27.7273C14.4837 27.7273 13.8636 28.3474 13.8636 29.1137C13.8636 32.7542 17.8792 37.7528 18.3368 38.3119C18.6117 38.645 19.0097 38.8183 19.4104 38.8183C19.719 38.8183 20.0305 38.7153 20.289 38.5041C20.8806 38.018 20.9659 37.1449 20.4812 36.5518C18.9948 34.7404 16.6364 31.1201 16.6364 29.1137Z" fill="white"/>
                                 <path d="M45.75 27.7273C44.9837 27.7273 44.3636 28.3474 44.3636 29.1137C44.3636 31.1133 42.0051 34.7377 40.5186 36.5533C40.034 37.1449 40.1205 38.0182 40.7123 38.5041C40.9695 38.7153 41.2809 38.8183 41.5909 38.8183C41.9916 38.8183 42.3883 38.645 42.6632 38.3119C43.1208 37.7528 47.1364 32.7543 47.1364 29.1137C47.1364 28.3474 46.5163 27.7273 45.75 27.7273Z" fill="white"/>
                                 <path d="M30.5001 27.7273C29.7337 27.7273 29.1136 28.3474 29.1136 29.1137V37.4319C29.1136 38.1982 29.7337 38.8183 30.5001 38.8183C31.2664 38.8183 31.8865 38.1982 31.8865 37.4319V29.1137C31.8863 28.3474 31.2662 27.7273 30.5001 27.7273Z" fill="white"/>
@@ -478,7 +266,67 @@
         <section class="map">
             <div id="map"></div>
         </section>
+        
+<section class="basket">
+    <div class="basket-top">
+        <a href="index.html" class="basket-return">
+            <div class="basket-return__arrow">
+                <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.46967 5.46967C0.176777 5.76256 0.176777 6.23744 0.46967 6.53033L5.24264 11.3033C5.53553 11.5962 6.01041 11.5962 6.3033 11.3033C6.59619 11.0104 6.59619 10.5355 6.3033 10.2426L2.06066 6L6.3033 1.75736C6.59619 1.46447 6.59619 0.989593 6.3033 0.6967C6.01041 0.403806 5.53553 0.403806 5.24264 0.696699L0.46967 5.46967ZM1.5 5.25L1 5.25L1 6.75L1.5 6.75L1.5 5.25Z" fill="white"/>
+                </svg>                        
+            </div>
+            к выбору блюда
+        </a>
+        <div class="basket-title h2">
+            <span></span> КОРЗИНА <p class="total-quantity-products">0</p>
+        </div>
+    </div>
+    <div class="basket-products">
+        <div class="product">
+            <div class="product__img">
+                <img src="/img/cold-snacks/cold-snacks-3.jpg" alt="фото товара">
+            </div>
+            <div class="product__body">
+                <div class="snacks__title product__title">
+                    ПИЦЦА ДВОЙНАЯ ПЕППЕРОНИ
+                </div>
+                <p class="product__about">
+                    Кальмары, мидии, креветки, сыр маасдам, 
+                    красный лук, микс оливок, базилик, соус песто
+                </p>
+            </div>
+            <div class="product-edit">
+                <button class="minus">-</button>
+                <div class="quantity">
+                    1
+                </div>
+                <button class="plus">+</button>
+            </div>
+            <div class="product-price">
+                <div class="snacks__price">162</div>
+                <button class="product-delete">X</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="basket-total">
+        <div class="total__body">
+            <div class="total__title">
+                500
+            </div>
+            <p class="total__need4free">100</p>
+            <p class="total__min">Минимальная сума заказа 700 ₽</p>
+        </div>
+        <button class="total__checkout">
+            Оформить заказ
+        </button>
+    </div>
+</section>
+<div class="body-gradient"></div>
+
+        <div class="body-gradient"></div>
     </main>
+
 <footer class="footer">
   <div class="footer_row container">
     <button class="footer__scroll-up scroll-up">
@@ -495,8 +343,7 @@
     </nav>
   </div>
 </footer>    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-    <script src="https://api-maps.yandex.ru/2.1/?apikey=4efb335a-a405-41a7-94e9-2ca5e54a5708&lang=ru_RU" type="text/javascript"></script>
-    <!-- <script src="balloon_and_hint.js" type="text/javascript"></script> -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=4efb335a-a405-41a7-94e9-2ca5e54a5708" type="text/javascript"></script>
     <script src="js/script.js"></script>
 </body>
 
