@@ -3,17 +3,17 @@ var __webpack_exports__ = {};
 var swiper = new Swiper('.swiper', {
   speed: 2000,
   spaceBetween: 15,
-  // loopFillGroupWithBlank: true,
+  loop: true,
+  loopFillGroupWithBlank: true,
   slidesPerView: "auto",
   longSwipesMs: 300,
   touchRatio: 0.5,
-  autoHeight: true // loop: true,
-  // centeredSlides: true,
-  // autoplay: {
-  //   delay: 5000,
-  //   pauseOnMouseEnter: true,
-  // },
-
+  autoHeight: true,
+  centeredSlides: true,
+  autoplay: {
+    delay: 5000,
+    pauseOnMouseEnter: true
+  }
 });
 
 function scrollBlock() {
@@ -48,19 +48,27 @@ scrollUp.forEach(function (item) {
 });
 var basketButton = document.querySelector(".basket-button");
 basketButton.addEventListener("click", function () {
-  var basketWindow = document.querySelector(".basket"); // scrollBlock();
-
+  var basketWindow = document.querySelector(".basket");
   basketWindow.classList.toggle("_active");
+  scrollBlock();
 });
 
 (function () {
   var cartDOMElement = document.querySelector(".basket-products");
   var cart = {};
 
-  var renderCartItem = function renderCartItem(data) {
+  var renderCartItem = function renderCartItem(_ref) {
+    var productName = _ref.productName,
+        productPrice = _ref.productPrice,
+        productAbout = _ref.productAbout,
+        src = _ref.src,
+        quantity = _ref.quantity;
     var cartItemDOMElement = document.createElement("div");
-    var cartItemTemplate = "\n      <div class=\"product\">\n        <div class=\"product__img\">\n            <img src=\"img/cold-snacks/cold-snacks-3.jpg\" alt=\"\u0444\u043E\u0442\u043E \u0442\u043E\u0432\u0430\u0440\u0430\">\n        </div>\n        <div class=\"product__body\">\n            <div class=\"snacks__title product__title\">\n                \u041F\u0418\u0426\u0426\u0410 \u0414\u0412\u041E\u0419\u041D\u0410\u042F \u041F\u0415\u041F\u041F\u0415\u0420\u041E\u041D\u0418\n            </div>\n            <p class=\"product__about\">\n                \u041A\u0430\u043B\u044C\u043C\u0430\u0440\u044B, \u043C\u0438\u0434\u0438\u0438, \u043A\u0440\u0435\u0432\u0435\u0442\u043A\u0438, \u0441\u044B\u0440 \u043C\u0430\u0430\u0441\u0434\u0430\u043C, \n                \u043A\u0440\u0430\u0441\u043D\u044B\u0439 \u043B\u0443\u043A, \u043C\u0438\u043A\u0441 \u043E\u043B\u0438\u0432\u043E\u043A, \u0431\u0430\u0437\u0438\u043B\u0438\u043A, \u0441\u043E\u0443\u0441 \u043F\u0435\u0441\u0442\u043E\n            </p>\n        </div>\n        <div class=\"product-edit\">\n            <button class=\"minus\">-</button>\n            <div class=\"quantity\">\n                1\n            </div>\n            <button class=\"plus\">+</button>\n        </div>\n        <div class=\"product-price\">\n            <div class=\"snacks__price\">162</div>\n            <button class=\"product-delete\">X</button>\n        </div>\n      </div>\n    ";
+    var cartItemTemplate = "\n      <div class=\"product__img\">\n          <img src=\"".concat(src, "\" alt=\"\u0444\u043E\u0442\u043E \u0442\u043E\u0432\u0430\u0440\u0430\">\n      </div>\n      <div class=\"product__body\">\n          <div class=\"snacks__title product__title\">\n              ").concat(productName, "\n          </div>\n          <p class=\"product__about\">\n              ").concat(productAbout, "\n          </p>\n      </div>\n      <div class=\"product-edit\">\n          <button class=\"minus\">-</button>\n          <div class=\"quantity\">\n              ").concat(quantity, "\n          </div>\n          <button class=\"plus\">+</button>\n      </div>\n      <div class=\"product-price\">\n          <div class=\"snacks__price\">\n          ").concat(productPrice * quantity, "\n          </div>\n          <button class=\"product-delete\">X</button>\n      </div>\n    ");
     cartItemDOMElement.innerHTML = cartItemTemplate;
+    cartItemDOMElement.classList.add("product"); // cartItemDOMElement.setAttribute(`productName`);
+    // cartItemDOMElement.classList.add(`productName`);
+
     cartDOMElement.appendChild(cartItemDOMElement);
   };
 
@@ -72,12 +80,14 @@ basketButton.addEventListener("click", function () {
 
   var getProductData = function getProductData(product) {
     var productName = product.querySelector(".snacks__title").textContent;
+    var productAbout = product.querySelector(".snacks__about").textContent;
     var productPrice = +product.querySelector(".snacks__price").textContent;
     var src = product.querySelector('img').getAttribute('src');
     var quantity = 1;
     return {
       productName: productName,
       productPrice: productPrice,
+      productAbout: productAbout,
       src: src,
       quantity: quantity
     };
@@ -89,9 +99,23 @@ basketButton.addEventListener("click", function () {
 
       if (target.classList.contains("basketDefault")) {
         e.preventDefault();
-        var product = target.closest(".snacks");
-        var data = getProductData(product);
+
+        var _product = target.closest(".snacks");
+
+        var data = getProductData(_product);
         addCartItem(data);
+      }
+
+      ;
+
+      if (target.classList.contains("product-delete")) {
+        e.preventDefault();
+        var cartItemDOMElement = target.closest(".basket-products");
+        var productId = cartItemDOMElement.textContent(".product");
+
+        var _data = getProductData(product);
+
+        addCartItem(_data);
       }
 
       ;
@@ -105,12 +129,12 @@ ymaps.ready(init);
 
 function init() {
   var myMap = new ymaps.Map("map", {
-    center: [54.193686, 45.161103],
+    center: [54.193616, 45.160650],
     zoom: 17
   }, {
     searchControlProvider: 'yandex#search'
   }),
-      myPlacemark = new ymaps.Placemark([54.193686, 45.161103], {
+      myPlacemark = new ymaps.Placemark([54.193616, 45.160650], {
     // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
     balloonContentHeader: "#ГРИЛЛЬ экспресс",
     balloonContentBody: "улица Титова, 10с1",

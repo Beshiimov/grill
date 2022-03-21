@@ -1,17 +1,17 @@
 const swiper = new Swiper('.swiper', {
   speed: 2000,
   spaceBetween: 15,
-  // loopFillGroupWithBlank: true,
+  loop: true,
+  loopFillGroupWithBlank: true,
   slidesPerView: "auto",
   longSwipesMs: 300,
   touchRatio: 0.5,
   autoHeight: true,
-  // loop: true,
-  // centeredSlides: true,
-  // autoplay: {
-  //   delay: 5000,
-  //   pauseOnMouseEnter: true,
-  // },
+  centeredSlides: true,
+  autoplay: {
+    delay: 5000,
+    pauseOnMouseEnter: true,
+  },
 });
 
 function scrollBlock () {
@@ -54,8 +54,8 @@ const basketButton = document.querySelector(`.basket-button`);
 
 basketButton.addEventListener(`click`, () => {
   const basketWindow = document.querySelector(`.basket`);
-  // scrollBlock();
   basketWindow.classList.toggle(`_active`);
+  scrollBlock();
 });
 
 
@@ -63,36 +63,42 @@ basketButton.addEventListener(`click`, () => {
   const cartDOMElement = document.querySelector(`.basket-products`)
   const cart = {};
 
-  const renderCartItem = (data) => {
+  const renderCartItem = ( {productName, productPrice, productAbout, src, quantity} ) => {
     const cartItemDOMElement = document.createElement(`div`);
+
     const cartItemTemplate = `
-      <div class="product">
-        <div class="product__img">
-            <img src="img/cold-snacks/cold-snacks-3.jpg" alt="фото товара">
-        </div>
-        <div class="product__body">
-            <div class="snacks__title product__title">
-                ПИЦЦА ДВОЙНАЯ ПЕППЕРОНИ
-            </div>
-            <p class="product__about">
-                Кальмары, мидии, креветки, сыр маасдам, 
-                красный лук, микс оливок, базилик, соус песто
-            </p>
-        </div>
-        <div class="product-edit">
-            <button class="minus">-</button>
-            <div class="quantity">
-                1
-            </div>
-            <button class="plus">+</button>
-        </div>
-        <div class="product-price">
-            <div class="snacks__price">162</div>
-            <button class="product-delete">X</button>
-        </div>
+      <div class="product__img">
+          <img src="${src}" alt="фото товара">
+      </div>
+      <div class="product__body">
+          <div class="snacks__title product__title">
+              ${productName}
+          </div>
+          <p class="product__about">
+              ${productAbout}
+          </p>
+      </div>
+      <div class="product-edit">
+          <button class="minus">-</button>
+          <div class="quantity">
+              ${quantity}
+          </div>
+          <button class="plus">+</button>
+      </div>
+      <div class="product-price">
+          <div class="snacks__price">
+          ${productPrice * quantity}
+          </div>
+          <button class="product-delete">X</button>
       </div>
     `;
+
     cartItemDOMElement.innerHTML = cartItemTemplate;
+    cartItemDOMElement.classList.add(`product`);
+
+    // cartItemDOMElement.setAttribute(`productName`);
+    // cartItemDOMElement.classList.add(`productName`);
+
 
     cartDOMElement.appendChild(cartItemDOMElement);
   };
@@ -107,12 +113,14 @@ basketButton.addEventListener(`click`, () => {
 
   const getProductData = (product) => {
     const productName = product.querySelector(`.snacks__title`).textContent;
+    const productAbout = product.querySelector(`.snacks__about`).textContent;
     const productPrice = +product.querySelector(`.snacks__price`).textContent;
     const src = product.querySelector('img').getAttribute('src');
     const quantity = 1;
     return {
       productName,
       productPrice,
+      productAbout,
       src,
       quantity
     };
@@ -128,6 +136,14 @@ basketButton.addEventListener(`click`, () => {
         const data = getProductData(product);
         addCartItem(data);
       };
+
+      if (target.classList.contains(`product-delete`)) {
+        e.preventDefault();
+        const cartItemDOMElement = target.closest(`.basket-products`);
+        const productId = cartItemDOMElement.textContent(`.product`)
+        const data = getProductData(product);
+        addCartItem(data);
+      };
     });
   };
   cartInit();
@@ -140,12 +156,12 @@ ymaps.ready(init);
 
 function init() {
   var myMap = new ymaps.Map("map", {
-      center: [54.193686, 45.161103],
+      center: [54.193616, 45.160650],
       zoom: 17
     }, {
       searchControlProvider: 'yandex#search'
     }),
-    myPlacemark = new ymaps.Placemark([54.193686, 45.161103], {
+    myPlacemark = new ymaps.Placemark([54.193616, 45.160650], {
       // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
       balloonContentHeader: "#ГРИЛЛЬ экспресс",
       balloonContentBody: "улица Титова, 10с1",
@@ -154,7 +170,6 @@ function init() {
       size: 400,
     });
   myMap.geoObjects.add(myPlacemark);
-
   };
 
 
