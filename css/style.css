@@ -648,6 +648,8 @@ main {
           filter: drop-shadow(0px 20px 25px rgba(25, 29, 29, 0.7));
 }
 .snacks a img {
+  -o-object-fit: contain;
+     object-fit: contain;
   border-radius: 10px 10px 0 0;
 }
 
@@ -1128,20 +1130,20 @@ main {
 }
 
 .product__img {
-  max-height: 100px;
-  width: 135px;
+  height: 85px;
+  width: 120px;
 }
 @media (max-width: 1230px) {
   .product__img {
-    width: calc(90px + 45 * ((100vw - 320px) / 910));
+    width: calc(90px + 30 * ((100vw - 320px) / 910));
   }
 }
 .product__img img {
+  -o-object-fit: contain;
+     object-fit: contain;
   border-radius: 10px;
   height: 100%;
   width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
 }
 .product__img img {
   fill: red;
@@ -1317,24 +1319,31 @@ main {
   content: " ₽";
 }
 
+.totalEnough {
+  display: inline-block;
+  line-height: 24px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
 .total__need4free {
+  display: inline-block;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
   color: #72A479;
-}
-.total__need4free::before {
-  color: #fff;
-  content: "До бесплатной доставки не хватет: ";
-}
-.total__need4free::after {
-  content: " ₽";
 }
 
 .total__min {
   font-weight: 400;
   font-size: 12px;
   line-height: 22px;
+}
+.total__min::before {
+  content: "Минимальная сума заказа ";
+}
+.total__min::after {
+  content: " ₽";
 }
 
 .total__checkout {

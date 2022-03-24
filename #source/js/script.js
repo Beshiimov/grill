@@ -59,8 +59,10 @@ basketButton.addEventListener(`click`, () => {
 });
 
 
+
+
 (function () {
-  const cartDOMElement = document.querySelector(`.basket-products`)
+  const cartDOMElement = document.querySelector(`.basket-products`);
   const cart = {};
 
   const renderCartItem = ( {productName, productPrice, productAbout, src, quantity} ) => {
@@ -96,12 +98,9 @@ basketButton.addEventListener(`click`, () => {
     cartItemDOMElement.innerHTML = cartItemTemplate;
     cartItemDOMElement.classList.add(`product`);
 
-    // cartItemDOMElement.setAttribute(`productName`);
-    // cartItemDOMElement.classList.add(`productName`);
-
-
     cartDOMElement.appendChild(cartItemDOMElement);
   };
+
 
   const addCartItem = (data) => {
     const {
@@ -129,48 +128,82 @@ basketButton.addEventListener(`click`, () => {
   const cartInit = () => {
     addEventListener(`click`, e => {
       const target = e.target;
-
+      
       if (target.classList.contains(`basketDefault`)) {
         e.preventDefault();
         const product = target.closest(`.snacks`);
         const data = getProductData(product);
         addCartItem(data);
       };
-
+      
       if (target.classList.contains(`product-delete`)) {
         e.preventDefault();
-        const cartItemDOMElement = target.closest(`.basket-products`);
-        const productId = cartItemDOMElement.textContent(`.product`)
-        const data = getProductData(product);
-        addCartItem(data);
+        const cartItemDOMElement = target.closest(`.product`);
+        cartItemDOMElement.parentNode.removeChild(cartItemDOMElement);
       };
+      
+      totalQuantityDOM();
+      totalPriceDOM();
     });
   };
   cartInit();
+
+
+  const totalQuantityDOM = () => {
+    const totalQuantityDOM1 = document.querySelector(`.total-quantity-products`);
+    const totalQuantityDOM2 = document.querySelector(`.basket-quantity`);
+    const productQuantity = cartDOMElement.querySelectorAll(`.product`);
+    totalQuantityDOM1.textContent = productQuantity.length;
+    totalQuantityDOM2.textContent = productQuantity.length;
+  };
+
+
+  const totalPriceDOM = () => {
+    const totalPriceDOM = document.querySelector(`.total__title`);
+    const totalPrice = cartDOMElement.querySelectorAll(`.snacks__price`);
+    const notEnough = document.querySelector(`.totalEnough`);
+    const needForFree = document.querySelector(`.total__need4free`);
+    const minPrice = +document.querySelector(`.total__min`).textContent;
+    let price = 0;
+
+    for (let i = 0; i < totalPrice.length; i++) {
+      price += +totalPrice[i].textContent;
+    };
+
+    totalPriceDOM.textContent = price;
+
+    if (price < minPrice) {
+      notEnough.textContent = `До бесплатной доставки не хватет: `
+      needForFree.textContent = minPrice - price;
+    } else {
+      notEnough.textContent = `У вас доставка будет бесплатна`;
+      needForFree.textContent = ``;
+    } 
+  };
 
 })();
 
 
 
-ymaps.ready(init);
+// ymaps.ready(init);
 
-function init() {
-  var myMap = new ymaps.Map("map", {
-      center: [54.193616, 45.160650],
-      zoom: 17
-    }, {
-      searchControlProvider: 'yandex#search'
-    }),
-    myPlacemark = new ymaps.Placemark([54.193616, 45.160650], {
-      // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
-      balloonContentHeader: "#ГРИЛЛЬ экспресс",
-      balloonContentBody: "улица Титова, 10с1",
-      balloonContentFooter: "Мы здесь",
-      hintContent: "Посмотреть адресс",
-      size: 400,
-    });
-  myMap.geoObjects.add(myPlacemark);
-  };
+// function init() {
+//   var myMap = new ymaps.Map("map", {
+//       center: [54.193616, 45.160650],
+//       zoom: 17
+//     }, {
+//       searchControlProvider: 'yandex#search'
+//     }),
+//     myPlacemark = new ymaps.Placemark([54.193616, 45.160650], {
+//       // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
+//       balloonContentHeader: "#ГРИЛЛЬ экспресс",
+//       balloonContentBody: "улица Титова, 10с1",
+//       balloonContentFooter: "Мы здесь",
+//       hintContent: "Посмотреть адресс",
+//       size: 400,
+//     });
+//   myMap.geoObjects.add(myPlacemark);
+// };
 
 
 //   //вывод запросов

@@ -66,9 +66,7 @@ basketButton.addEventListener("click", function () {
     var cartItemDOMElement = document.createElement("div");
     var cartItemTemplate = "\n      <div class=\"product__img\">\n          <img src=\"".concat(src, "\" alt=\"\u0444\u043E\u0442\u043E \u0442\u043E\u0432\u0430\u0440\u0430\">\n      </div>\n      <div class=\"product__body\">\n          <div class=\"snacks__title product__title\">\n              ").concat(productName, "\n          </div>\n          <p class=\"product__about\">\n              ").concat(productAbout, "\n          </p>\n      </div>\n      <div class=\"product-edit\">\n          <button class=\"minus\">-</button>\n          <div class=\"quantity\">\n              ").concat(quantity, "\n          </div>\n          <button class=\"plus\">+</button>\n      </div>\n      <div class=\"product-price\">\n          <div class=\"snacks__price\">\n          ").concat(productPrice * quantity, "\n          </div>\n          <button class=\"product-delete\">X</button>\n      </div>\n    ");
     cartItemDOMElement.innerHTML = cartItemTemplate;
-    cartItemDOMElement.classList.add("product"); // cartItemDOMElement.setAttribute(`productName`);
-    // cartItemDOMElement.classList.add(`productName`);
-
+    cartItemDOMElement.classList.add("product");
     cartDOMElement.appendChild(cartItemDOMElement);
   };
 
@@ -99,10 +97,8 @@ basketButton.addEventListener("click", function () {
 
       if (target.classList.contains("basketDefault")) {
         e.preventDefault();
-
-        var _product = target.closest(".snacks");
-
-        var data = getProductData(_product);
+        var product = target.closest(".snacks");
+        var data = getProductData(product);
         addCartItem(data);
       }
 
@@ -110,42 +106,68 @@ basketButton.addEventListener("click", function () {
 
       if (target.classList.contains("product-delete")) {
         e.preventDefault();
-        var cartItemDOMElement = target.closest(".basket-products");
-        var productId = cartItemDOMElement.textContent(".product");
-
-        var _data = getProductData(product);
-
-        addCartItem(_data);
+        var cartItemDOMElement = target.closest(".product");
+        cartItemDOMElement.parentNode.removeChild(cartItemDOMElement);
       }
 
       ;
+      totalQuantityDOM();
+      totalPriceDOM();
     });
   };
 
   cartInit();
-})();
 
-ymaps.ready(init);
+  var totalQuantityDOM = function totalQuantityDOM() {
+    var totalQuantityDOM1 = document.querySelector(".total-quantity-products");
+    var totalQuantityDOM2 = document.querySelector(".basket-quantity");
+    var productQuantity = cartDOMElement.querySelectorAll(".product");
+    totalQuantityDOM1.textContent = productQuantity.length;
+    totalQuantityDOM2.textContent = productQuantity.length;
+  };
 
-function init() {
-  var myMap = new ymaps.Map("map", {
-    center: [54.193616, 45.160650],
-    zoom: 17
-  }, {
-    searchControlProvider: 'yandex#search'
-  }),
-      myPlacemark = new ymaps.Placemark([54.193616, 45.160650], {
-    // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
-    balloonContentHeader: "#ГРИЛЛЬ экспресс",
-    balloonContentBody: "улица Титова, 10с1",
-    balloonContentFooter: "Мы здесь",
-    hintContent: "Посмотреть адресс",
-    size: 400
-  });
-  myMap.geoObjects.add(myPlacemark);
-}
+  var totalPriceDOM = function totalPriceDOM() {
+    var totalPriceDOM = document.querySelector(".total__title");
+    var totalPrice = cartDOMElement.querySelectorAll(".snacks__price");
+    var notEnough = document.querySelector(".totalEnough");
+    var needForFree = document.querySelector(".total__need4free");
+    var minPrice = +document.querySelector(".total__min").textContent;
+    var price = 0;
 
-; //   //вывод запросов
+    for (var i = 0; i < totalPrice.length; i++) {
+      price += +totalPrice[i].textContent;
+    }
+
+    ;
+    totalPriceDOM.textContent = price;
+
+    if (price < minPrice) {
+      notEnough.textContent = "\u0414\u043E \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E\u0439 \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0438 \u043D\u0435 \u0445\u0432\u0430\u0442\u0435\u0442: ";
+      needForFree.textContent = minPrice - price;
+    } else {
+      notEnough.textContent = "\u0423 \u0432\u0430\u0441 \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0430 \u0431\u0443\u0434\u0435\u0442 \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u0430";
+      needForFree.textContent = "";
+    }
+  };
+})(); // ymaps.ready(init);
+// function init() {
+//   var myMap = new ymaps.Map("map", {
+//       center: [54.193616, 45.160650],
+//       zoom: 17
+//     }, {
+//       searchControlProvider: 'yandex#search'
+//     }),
+//     myPlacemark = new ymaps.Placemark([54.193616, 45.160650], {
+//       // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
+//       balloonContentHeader: "#ГРИЛЛЬ экспресс",
+//       balloonContentBody: "улица Титова, 10с1",
+//       balloonContentFooter: "Мы здесь",
+//       hintContent: "Посмотреть адресс",
+//       size: 400,
+//     });
+//   myMap.geoObjects.add(myPlacemark);
+// };
+//   //вывод запросов
 //   var suggestView1 = new ymaps.SuggestView('suggest');
 //   var arr = [
 //     "Саранск, улица"
