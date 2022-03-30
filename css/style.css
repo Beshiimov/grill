@@ -406,10 +406,6 @@ main {
   font-size: 14px;
   line-height: 17px;
 }
-.basket-button span {
-  height: 38px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
 
 .basket-quantity {
   width: 24px;
@@ -1721,15 +1717,6 @@ main {
     text-transform: lowercase;
     font-size: 12px;
     padding: 0;
-  }
-  .header .basket-button span {
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    position: absolute;
-    top: 30%;
-    height: 45px;
-    -webkit-transform: rotate(90deg) translate(-50%, 0);
-        -ms-transform: rotate(90deg) translate(-50%, 0);
-            transform: rotate(90deg) translate(-50%, 0);
   }
   .header .basket-button img {
     width: 24px;

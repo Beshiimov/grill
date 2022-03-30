@@ -185,11 +185,6 @@ main {
     font-size: 14px;
     line-height: 17px;
   }
-
-  & span {
-    height: 38px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
 }
 
 .basket-quantity {
@@ -1120,13 +1115,6 @@ main {
       padding: 0;
     }
 
-    & span {
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      position: absolute;
-      top: 30%;
-      height: 45px;
-      transform: rotate(90deg) translate(-50%, 0);
-    }
     & img {
       width: 24px;
       height: 24px;

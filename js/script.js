@@ -9,11 +9,11 @@ var swiper = new Swiper('.swiper', {
   longSwipesMs: 300,
   touchRatio: 0.5,
   autoHeight: true,
-  centeredSlides: true,
-  autoplay: {
-    delay: 5000,
-    pauseOnMouseEnter: true
-  }
+  centeredSlides: true // autoplay: {
+  //   delay: 5000,
+  //   pauseOnMouseEnter: true,
+  // },
+
 });
 
 function scrollBlock() {
@@ -21,7 +21,6 @@ function scrollBlock() {
   body.classList.toggle("_scroll-block");
 }
 
-;
 var hamburger = document.querySelector(".hamb");
 var popup = document.querySelector(".popup");
 var menu = document.querySelector(".menu");
@@ -55,7 +54,7 @@ basketButton.addEventListener("click", function () {
 
 (function () {
   var cartDOMElement = document.querySelector(".basket-products");
-  var cart = {};
+  var cart = JSON.parse(localStorage.getItem("cart")) || {};
 
   var renderCartItem = function renderCartItem(_ref) {
     var productName = _ref.productName,
@@ -67,13 +66,83 @@ basketButton.addEventListener("click", function () {
     var cartItemTemplate = "\n      <div class=\"product__img\">\n          <img src=\"".concat(src, "\" alt=\"\u0444\u043E\u0442\u043E \u0442\u043E\u0432\u0430\u0440\u0430\">\n      </div>\n      <div class=\"product__body\">\n          <div class=\"snacks__title product__title\">\n              ").concat(productName, "\n          </div>\n          <p class=\"product__about\">\n              ").concat(productAbout, "\n          </p>\n      </div>\n      <div class=\"product-edit\">\n          <button class=\"minus\">-</button>\n          <div class=\"quantity\">\n              ").concat(quantity, "\n          </div>\n          <button class=\"plus\">+</button>\n      </div>\n      <div class=\"product-price\">\n          <div class=\"snacks__price\">\n          ").concat(productPrice * quantity, "\n          </div>\n          <button class=\"product-delete\">X</button>\n      </div>\n    ");
     cartItemDOMElement.innerHTML = cartItemTemplate;
     cartItemDOMElement.classList.add("product");
+    cartItemDOMElement.classList.add("".concat(productName));
     cartDOMElement.appendChild(cartItemDOMElement);
+  }; // const totalQuantityDOM = (ids) => {
+  //   const totalQuantityDOM1 = document.querySelector(`.total-quantity-products`);
+  //   const totalQuantityDOM2 = document.querySelector(`.basket-quantity`);
+  //   const productQuantity = cartDOMElement.querySelectorAll(`.product`);
+  //
+  //   totalQuantityDOM1.textContent = ids;
+  //   totalQuantityDOM2.textContent = ids;
+  // };
+  //
+  // const totalPriceDOM = () => {
+  //   const totalPriceDOM = document.querySelector(`.total__title`);
+  //   const totalPrice = cartDOMElement.querySelectorAll(`.snacks__price`);
+  //   const notEnough = document.querySelector(`.totalEnough`);
+  //   const needForFree = document.querySelector(`.total__need4free`);
+  //   const minPrice = +document.querySelector(`.total__min`).textContent;
+  //   let price = 0;
+  //
+  //   for (let i = 0; i < totalPrice.length; i++) {
+  //     price += +totalPrice[i].textContent;
+  //   }
+  //
+  //   totalPriceDOM.textContent = price;
+  //
+  //   if (price < minPrice) {
+  //     notEnough.textContent = `До бесплатной доставки не хватет: `
+  //     needForFree.textContent = minPrice - price;
+  //   } else {
+  //     notEnough.textContent = `У вас доставка будет бесплатна`;
+  //     needForFree.textContent = ``;
+  //   }
+  // };
+  // totalQuantityDOM();
+  // totalPriceDOM();
+
+
+  var saveCart = function saveCart() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  };
+
+  var updateCart = function updateCart() {
+    saveCart();
+  };
+
+  var productDelete = function productDelete(id) {
+    delete cart[id];
   };
 
   var addCartItem = function addCartItem(data) {
     var productName = data.productName;
     cart[productName] = data;
     renderCartItem(data);
+    updateCart();
+  };
+
+  var updateQuantity = function updateQuantity(id, quantity) {
+    var cartItemDOMElement = cartDOMElement.querySelector(".".concat(id));
+    var cartItemQuantityDOMElement = cartItemDOMElement.querySelector(".quantity");
+    var cartItemPriceDOMElement = cartItemDOMElement.querySelector(".snacks__price");
+    cart[id].quantity = quantity;
+    cartItemQuantityDOMElement.textContent = quantity;
+    cartItemPriceDOMElement.textContent = quantity * cart[id].productPrice;
+    updateCart();
+  };
+
+  var minusQuantity = function minusQuantity(id) {
+    var newQuantity = cart[id].quantity - 1;
+
+    if (newQuantity >= 1) {
+      updateQuantity(id, newQuantity);
+    }
+  };
+
+  var plusQuantity = function plusQuantity(id) {
+    var newQuantity = cart[id].quantity + 1;
+    updateQuantity(id, newQuantity);
   };
 
   var getProductData = function getProductData(product) {
@@ -91,7 +160,15 @@ basketButton.addEventListener("click", function () {
     };
   };
 
+  var renderCart = function renderCart() {
+    var ids = Object.keys(cart);
+    ids.forEach(function (id) {
+      return renderCartItem(cart[id]);
+    });
+  };
+
   var cartInit = function cartInit() {
+    renderCart();
     addEventListener("click", function (e) {
       var target = e.target;
 
@@ -102,53 +179,37 @@ basketButton.addEventListener("click", function () {
         addCartItem(data);
       }
 
-      ;
-
       if (target.classList.contains("product-delete")) {
         e.preventDefault();
         var cartItemDOMElement = target.closest(".product");
+        var productID = cartItemDOMElement.querySelector(".product__title").textContent.trim();
         cartItemDOMElement.parentNode.removeChild(cartItemDOMElement);
+        productDelete(productID);
       }
 
-      ;
-      totalQuantityDOM();
-      totalPriceDOM();
+      if (target.classList.contains("plus")) {
+        e.preventDefault();
+
+        var _cartItemDOMElement = target.closest(".product");
+
+        var _productID = _cartItemDOMElement.querySelector(".product__title").textContent.trim();
+
+        plusQuantity(_productID);
+      }
+
+      if (target.classList.contains("minus")) {
+        e.preventDefault();
+
+        var _cartItemDOMElement2 = target.closest(".product");
+
+        var _productID2 = _cartItemDOMElement2.querySelector(".product__title").textContent.trim();
+
+        minusQuantity(_productID2);
+      }
     });
   };
 
   cartInit();
-
-  var totalQuantityDOM = function totalQuantityDOM() {
-    var totalQuantityDOM1 = document.querySelector(".total-quantity-products");
-    var totalQuantityDOM2 = document.querySelector(".basket-quantity");
-    var productQuantity = cartDOMElement.querySelectorAll(".product");
-    totalQuantityDOM1.textContent = productQuantity.length;
-    totalQuantityDOM2.textContent = productQuantity.length;
-  };
-
-  var totalPriceDOM = function totalPriceDOM() {
-    var totalPriceDOM = document.querySelector(".total__title");
-    var totalPrice = cartDOMElement.querySelectorAll(".snacks__price");
-    var notEnough = document.querySelector(".totalEnough");
-    var needForFree = document.querySelector(".total__need4free");
-    var minPrice = +document.querySelector(".total__min").textContent;
-    var price = 0;
-
-    for (var i = 0; i < totalPrice.length; i++) {
-      price += +totalPrice[i].textContent;
-    }
-
-    ;
-    totalPriceDOM.textContent = price;
-
-    if (price < minPrice) {
-      notEnough.textContent = "\u0414\u043E \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u043E\u0439 \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0438 \u043D\u0435 \u0445\u0432\u0430\u0442\u0435\u0442: ";
-      needForFree.textContent = minPrice - price;
-    } else {
-      notEnough.textContent = "\u0423 \u0432\u0430\u0441 \u0434\u043E\u0441\u0442\u0430\u0432\u043A\u0430 \u0431\u0443\u0434\u0435\u0442 \u0431\u0435\u0441\u043F\u043B\u0430\u0442\u043D\u0430";
-      needForFree.textContent = "";
-    }
-  };
 })(); // ymaps.ready(init);
 // function init() {
 //   var myMap = new ymaps.Map("map", {
