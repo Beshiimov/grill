@@ -7,6 +7,7 @@ body {
   background-color: #403C3B;
   font-size: 18px;
   font-family: Gilroy;
+  background-color: #44403F;
   &._scroll-block {
     overflow: hidden;
     width: 100%;
@@ -268,7 +269,7 @@ main {
 }
 .hero__background {
   user-select: none;
-  position: absolute;
+  position: relative;
   z-index: -1;
   height: 100%;
   width: 100%;

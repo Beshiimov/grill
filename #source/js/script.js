@@ -35,9 +35,6 @@ hamburger.addEventListener(`click`, () => {
   scrollBlock();
 });
 
-
-
-
 const scrollUp = document.querySelectorAll(`.scroll-up`);
 
 scrollUp.forEach(item => {
@@ -63,6 +60,11 @@ basketButton.addEventListener(`click`, () => {
 
 (function () {
   const cartDOMElement = document.querySelector(`.basket-products`);
+  const basketWindow = document.querySelector(`.basket`)
+  const totalPriceDOMElement = basketWindow.querySelector(`.total__title`);
+  const cartItemsCounterDOMElement = document.querySelector(`.basket-quantity`);
+  const cartItemsCounterDOMElementWindow = document.querySelector(`.total-quantity-products`);
+
   const cart = JSON.parse(localStorage.getItem(`cart`)) || {};
 
   const renderCartItem = ({ productName, productPrice, productAbout, src, quantity }) => {
@@ -101,57 +103,53 @@ basketButton.addEventListener(`click`, () => {
     cartDOMElement.appendChild(cartItemDOMElement);
   };
 
-  // const totalQuantityDOM = (ids) => {
-  //   const totalQuantityDOM1 = document.querySelector(`.total-quantity-products`);
-  //   const totalQuantityDOM2 = document.querySelector(`.basket-quantity`);
-  //   const productQuantity = cartDOMElement.querySelectorAll(`.product`);
-  //
-  //   totalQuantityDOM1.textContent = ids;
-  //   totalQuantityDOM2.textContent = ids;
-  // };
-  //
-  // const totalPriceDOM = () => {
-  //   const totalPriceDOM = document.querySelector(`.total__title`);
-  //   const totalPrice = cartDOMElement.querySelectorAll(`.snacks__price`);
-  //   const notEnough = document.querySelector(`.totalEnough`);
-  //   const needForFree = document.querySelector(`.total__need4free`);
-  //   const minPrice = +document.querySelector(`.total__min`).textContent;
-  //   let price = 0;
-  //
-  //   for (let i = 0; i < totalPrice.length; i++) {
-  //     price += +totalPrice[i].textContent;
-  //   }
-  //
-  //   totalPriceDOM.textContent = price;
-  //
-  //   if (price < minPrice) {
-  //     notEnough.textContent = `До бесплатной доставки не хватет: `
-  //     needForFree.textContent = minPrice - price;
-  //   } else {
-  //     notEnough.textContent = `У вас доставка будет бесплатна`;
-  //     needForFree.textContent = ``;
-  //   }
-  // };
-  // totalQuantityDOM();
-  // totalPriceDOM();
-
 
   const saveCart = () => {
     localStorage.setItem(`cart`, JSON.stringify(cart));
   };
 
+  const updateCartTotalPrice = () => {
+    const totalPrice = Object.keys(cart).reduce((acc, id) => {
+      const { quantity,productPrice } = cart[id];
+      return acc + productPrice * quantity;
+    }, 0);
+
+    if (totalPriceDOMElement) {
+    totalPriceDOMElement.textContent = totalPrice;
+    }
+  };
+
+  const updateCartTotalItemsCounter = () => {
+    const totalQuantity = Object.keys(cart).reduce((acc, id) => {
+      const { quantity } = cart[id];
+      return acc + quantity;
+    }, 0);
+
+    if (cartItemsCounterDOMElement) {
+      cartItemsCounterDOMElement.textContent = totalQuantity;
+      cartItemsCounterDOMElementWindow.textContent = totalQuantity;
+    }
+  };
+
   const updateCart = () => {
+    updateCartTotalPrice();
+    updateCartTotalItemsCounter();
     saveCart();
   };
 
   const productDelete = (id) => {
     delete cart[id];
+    updateCart();
   };
 
   const addCartItem = (data) => {
-    const {
-      productName
-    } = data;
+    const { productName } = data;
+
+    if (cart[productName]) {
+      plusQuantity(productName);
+      return;
+    }
+
     cart[productName] = data;
     renderCartItem(data);
     updateCart();
@@ -204,6 +202,7 @@ basketButton.addEventListener(`click`, () => {
 
   const cartInit = () => {
     renderCart();
+    updateCart();
 
     addEventListener(`click`, e => {
       const target = e.target;

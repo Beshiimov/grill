@@ -147,6 +147,7 @@ body {
   background-color: #403C3B;
   font-size: 18px;
   font-family: Gilroy;
+  background-color: #44403F;
 }
 body._scroll-block {
   overflow: hidden;
@@ -515,7 +516,7 @@ main {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  position: absolute;
+  position: relative;
   z-index: -1;
   height: 100%;
   width: 100%;

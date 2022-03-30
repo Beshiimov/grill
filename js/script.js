@@ -54,6 +54,10 @@ basketButton.addEventListener("click", function () {
 
 (function () {
   var cartDOMElement = document.querySelector(".basket-products");
+  var basketWindow = document.querySelector(".basket");
+  var totalPriceDOMElement = basketWindow.querySelector(".total__title");
+  var cartItemsCounterDOMElement = document.querySelector(".basket-quantity");
+  var cartItemsCounterDOMElementWindow = document.querySelector(".total-quantity-products");
   var cart = JSON.parse(localStorage.getItem("cart")) || {};
 
   var renderCartItem = function renderCartItem(_ref) {
@@ -68,55 +72,56 @@ basketButton.addEventListener("click", function () {
     cartItemDOMElement.classList.add("product");
     cartItemDOMElement.classList.add("".concat(productName));
     cartDOMElement.appendChild(cartItemDOMElement);
-  }; // const totalQuantityDOM = (ids) => {
-  //   const totalQuantityDOM1 = document.querySelector(`.total-quantity-products`);
-  //   const totalQuantityDOM2 = document.querySelector(`.basket-quantity`);
-  //   const productQuantity = cartDOMElement.querySelectorAll(`.product`);
-  //
-  //   totalQuantityDOM1.textContent = ids;
-  //   totalQuantityDOM2.textContent = ids;
-  // };
-  //
-  // const totalPriceDOM = () => {
-  //   const totalPriceDOM = document.querySelector(`.total__title`);
-  //   const totalPrice = cartDOMElement.querySelectorAll(`.snacks__price`);
-  //   const notEnough = document.querySelector(`.totalEnough`);
-  //   const needForFree = document.querySelector(`.total__need4free`);
-  //   const minPrice = +document.querySelector(`.total__min`).textContent;
-  //   let price = 0;
-  //
-  //   for (let i = 0; i < totalPrice.length; i++) {
-  //     price += +totalPrice[i].textContent;
-  //   }
-  //
-  //   totalPriceDOM.textContent = price;
-  //
-  //   if (price < minPrice) {
-  //     notEnough.textContent = `До бесплатной доставки не хватет: `
-  //     needForFree.textContent = minPrice - price;
-  //   } else {
-  //     notEnough.textContent = `У вас доставка будет бесплатна`;
-  //     needForFree.textContent = ``;
-  //   }
-  // };
-  // totalQuantityDOM();
-  // totalPriceDOM();
-
+  };
 
   var saveCart = function saveCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
   };
 
+  var updateCartTotalPrice = function updateCartTotalPrice() {
+    var totalPrice = Object.keys(cart).reduce(function (acc, id) {
+      var _cart$id = cart[id],
+          quantity = _cart$id.quantity,
+          productPrice = _cart$id.productPrice;
+      return acc + productPrice * quantity;
+    }, 0);
+
+    if (totalPriceDOMElement) {
+      totalPriceDOMElement.textContent = totalPrice;
+    }
+  };
+
+  var updateCartTotalItemsCounter = function updateCartTotalItemsCounter() {
+    var totalQuantity = Object.keys(cart).reduce(function (acc, id) {
+      var quantity = cart[id].quantity;
+      return acc + quantity;
+    }, 0);
+
+    if (cartItemsCounterDOMElement) {
+      cartItemsCounterDOMElement.textContent = totalQuantity;
+      cartItemsCounterDOMElementWindow.textContent = totalQuantity;
+    }
+  };
+
   var updateCart = function updateCart() {
+    updateCartTotalPrice();
+    updateCartTotalItemsCounter();
     saveCart();
   };
 
   var productDelete = function productDelete(id) {
     delete cart[id];
+    updateCart();
   };
 
   var addCartItem = function addCartItem(data) {
     var productName = data.productName;
+
+    if (cart[productName]) {
+      plusQuantity(productName);
+      return;
+    }
+
     cart[productName] = data;
     renderCartItem(data);
     updateCart();
@@ -169,6 +174,7 @@ basketButton.addEventListener("click", function () {
 
   var cartInit = function cartInit() {
     renderCart();
+    updateCart();
     addEventListener("click", function (e) {
       var target = e.target;
 
