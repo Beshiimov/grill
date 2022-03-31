@@ -45,11 +45,11 @@ main {
 }
 
 .header-row {
+  padding: 0 25px;
   @include adaptive-value("height", 90, 73, 1);
-  display: grid;
-  grid-template-columns: minmax(100px, 170px) 1fr 150px;
-  align-items: center;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .logo {
   text-align: center;
@@ -69,42 +69,10 @@ main {
   }
 }
 
-.header__center {
+.header__right {
   display: flex;
-}
-
-.header__search {
-  height: 52px;
-  background: #504B4A;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  margin-right: 30px;
-  @include adaptive-value("width", 555, 100, 1);
-
-  & img {
-    box-sizing: content-box;
-    height: 24px;
-    width: 24px;
-    padding: 4px;
-    margin: 0 14px;
-  }
-
-  & input {
-    width: 100%;
-    color: #fff;
-    background-color: transparent;
-    height: 100%;
-    @include adaptive-value ("font-size", 18, 14, 1);
-  }
-
-  & input::placeholder {
-    color: #CFCFCF;
-  }
-
-  & input:focus::placeholder {
-    font-size: 0;
-  }
+  justify-content: space-between;
+  width: 380px;
 }
 
 .call {
@@ -161,7 +129,7 @@ main {
 }
 
 .basket-button {
-  max-width: 150px;
+  width: 130px;
   height: 50px;
   background: linear-gradient(114.93deg, #618967 5.11%, #72A479 94%);
   border-radius: 10px;
@@ -171,6 +139,7 @@ main {
   align-items: center;
   transition: all .2s ease;
   color: #fff;
+  padding: 0 5px 0 15px;
 
   &:hover {
     filter: brightness(92%);
@@ -181,7 +150,6 @@ main {
   }
 
   & p:first-child {
-    padding: 0 5px 0 20px;
     font-weight: 600;
     font-size: 14px;
     line-height: 17px;
@@ -637,14 +605,15 @@ main {
   @include adaptive-value("margin-bottom", 70, 20, 1)
 }
 .basket-return {
+  color: #fff;
+  background-color: transparent;
   display: flex;
-  align-items: center;
-  height: 15px;
   font-weight: 700;
   transition: all .3s ease;
+  padding-left: 5px;
   & .basket-return__arrow {
-    width: 12px;
-    height: 100%;
+    font-size: 15.5px;
+    margin-right: 3px;
     & svg path{
       object-fit: cover;
       transition: all .3s ease;
@@ -851,11 +820,19 @@ main {
   font-size: 14px;
 }
 .total__need4free {
+  color: #72A479;
   display: inline-block;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
+}
+.total__need4free-rubles {
   color: #72A479;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #72A479;
+
 }
 .total__min {
   font-weight: 400;
@@ -933,17 +910,7 @@ main {
 
 /*---Media---------------------*/
 @media (max-width: 1023px) {
-  .call {
-    & .call__icon {
-      width: 50px;
-      height: 50px;
 
-      & img {
-        width: 30px;
-        height: 30px;
-      }
-    }
-  }
   .about-top {
     padding: 45px 25px;
   }
@@ -974,45 +941,26 @@ main {
   }
 
 }
-@media (max-width: 1024px) and (min-width: 767px) {
-  .call__contact {
-    display: none;
-  }
-}
 
 @media (max-width: 767px) {
-  .hero {
-    // margin-top: 1000px;
-  }
   .logo {
     text-align: center;
   }
   .header-row {
-    // height: 142px;
-    grid-row: 1fr 1fr;
-    justify-content: center;
-    grid-template-columns: 65px 1fr 65px;
-    grid-template-rows: 1fr 1fr;
     padding: 10px 15px;
   }
-  .header__center {
-    display: grid;
-    grid-column-start: 1;
-    grid-column-end: 4;
-    grid-row-start: 2;
-    grid-row-end: 2;
-    & .header__search {
-      width: 100%;      
-      margin-right: 0;
-    }
+  .header__right {
+    width: auto;
   }
-
+  .basket-button {
+    width: 50px;
+  }
   .hamb {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 37px;
+    width: 50px;
     height: 37px;
     cursor: pointer;
     transform: translateY(-10px);
@@ -1062,15 +1010,16 @@ main {
   }
 
   .popup {
-    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: -100%;
+    top: 0;
+    transition: all .4s ease 0s;
     &._active {
-      position: absolute;
-      top: 0;
       left: 0;
       overflow: scroll;
       min-height: 400px;
-      height: 100vh;
-      width: 100%;
       padding: 20px 10px;
       z-index: 100;
       display: flex;

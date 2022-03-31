@@ -190,17 +190,17 @@ main {
 }
 
 .header-row {
+  padding: 0 25px;
   height: 90px;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: minmax(100px, 170px) 1fr 150px;
-  grid-template-columns: minmax(100px, 170px) 1fr 150px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 @media (max-width: 1230px) {
   .header-row {
@@ -230,79 +230,14 @@ main {
           transform: scale(101%);
 }
 
-.header__center {
+.header__right {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-}
-
-.header__search {
-  height: 52px;
-  background: #504B4A;
-  border-radius: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin-right: 30px;
-  width: 555px;
-}
-@media (max-width: 1230px) {
-  .header__search {
-    width: calc(100px + 455 * ((100vw - 320px) / 910));
-  }
-}
-.header__search img {
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
-  height: 24px;
-  width: 24px;
-  padding: 4px;
-  margin: 0 14px;
-}
-.header__search input {
-  width: 100%;
-  color: #fff;
-  background-color: transparent;
-  height: 100%;
-  font-size: 18px;
-}
-@media (max-width: 1230px) {
-  .header__search input {
-    font-size: calc(14px + 4 * ((100vw - 320px) / 910));
-  }
-}
-.header__search input::-webkit-input-placeholder {
-  color: #CFCFCF;
-}
-.header__search input::-moz-placeholder {
-  color: #CFCFCF;
-}
-.header__search input:-ms-input-placeholder {
-  color: #CFCFCF;
-}
-.header__search input::-ms-input-placeholder {
-  color: #CFCFCF;
-}
-.header__search input::placeholder {
-  color: #CFCFCF;
-}
-.header__search input:focus::-webkit-input-placeholder {
-  font-size: 0;
-}
-.header__search input:focus::-moz-placeholder {
-  font-size: 0;
-}
-.header__search input:focus:-ms-input-placeholder {
-  font-size: 0;
-}
-.header__search input:focus::-ms-input-placeholder {
-  font-size: 0;
-}
-.header__search input:focus::placeholder {
-  font-size: 0;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 380px;
 }
 
 .call {
@@ -371,7 +306,7 @@ main {
 }
 
 .basket-button {
-  max-width: 150px;
+  width: 130px;
   height: 50px;
   background: -o-linear-gradient(335.07deg, #618967 5.11%, #72A479 94%);
   background: linear-gradient(114.93deg, #618967 5.11%, #72A479 94%);
@@ -392,6 +327,7 @@ main {
   -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
   color: #fff;
+  padding: 0 5px 0 15px;
 }
 .basket-button:hover {
   -webkit-filter: brightness(92%);
@@ -402,7 +338,6 @@ main {
           filter: brightness(85%);
 }
 .basket-button p:first-child {
-  padding: 0 5px 0 20px;
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
@@ -1040,21 +975,20 @@ main {
 }
 
 .basket-return {
+  color: #fff;
+  background-color: transparent;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 15px;
   font-weight: 700;
   -webkit-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  padding-left: 5px;
 }
 .basket-return .basket-return__arrow {
-  width: 12px;
-  height: 100%;
+  font-size: 15.5px;
+  margin-right: 3px;
 }
 .basket-return .basket-return__arrow svg path {
   -o-object-fit: cover;
@@ -1324,7 +1258,15 @@ main {
 }
 
 .total__need4free {
+  color: #72A479;
   display: inline-block;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.total__need4free-rubles {
+  color: #72A479;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
@@ -1430,15 +1372,6 @@ main {
 
 /*---Media---------------------*/
 @media (max-width: 1023px) {
-  .call .call__icon {
-    width: 50px;
-    height: 50px;
-  }
-  .call .call__icon img {
-    width: 30px;
-    height: 30px;
-  }
-
   .about-top {
     padding: 45px 25px;
   }
@@ -1507,73 +1440,21 @@ main {
     margin-top: 15px;
   }
 }
-@media (max-width: 1024px) and (min-width: 767px) {
-  .call__contact {
-    display: none;
-  }
-}
 @media (max-width: 767px) {
   .logo {
     text-align: center;
   }
 
   .header-row {
-    grid-row: 1fr 1fr;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -ms-grid-columns: 65px 1fr 65px;
-    grid-template-columns: 65px 1fr 65px;
-    -ms-grid-rows: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
     padding: 10px 15px;
   }
 
-  .header-row > *:nth-child(1) {
-    -ms-grid-row: 1;
-    -ms-grid-column: 1;
+  .header__right {
+    width: auto;
   }
 
-  .header-row > *:nth-child(2) {
-    -ms-grid-row: 1;
-    -ms-grid-column: 2;
-  }
-
-  .header-row > *:nth-child(3) {
-    -ms-grid-row: 1;
-    -ms-grid-column: 3;
-  }
-
-  .header-row > *:nth-child(4) {
-    -ms-grid-row: 2;
-    -ms-grid-column: 1;
-  }
-
-  .header-row > *:nth-child(5) {
-    -ms-grid-row: 2;
-    -ms-grid-column: 2;
-  }
-
-  .header-row > *:nth-child(6) {
-    -ms-grid-row: 2;
-    -ms-grid-column: 3;
-  }
-
-  .header__center {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-column: 1;
-        grid-column-start: 1;
-    -ms-grid-column-span: 3;
-    grid-column-end: 4;
-    -ms-grid-row: 2;
-        grid-row-start: 2;
-    -ms-grid-row-span: 0;
-    grid-row-end: 2;
-  }
-  .header__center .header__search {
-    width: 100%;
-    margin-right: 0;
+  .basket-button {
+    width: 50px;
   }
 
   .hamb {
@@ -1587,7 +1468,7 @@ main {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
-    width: 37px;
+    width: 50px;
     height: 37px;
     cursor: pointer;
     -webkit-transform: translateY(-10px);
@@ -1651,16 +1532,19 @@ main {
   }
 
   .popup {
-    display: none;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: -100%;
+    top: 0;
+    -webkit-transition: all 0.4s ease 0s;
+    -o-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
   }
   .popup._active {
-    position: absolute;
-    top: 0;
     left: 0;
     overflow: scroll;
     min-height: 400px;
-    height: 100vh;
-    width: 100%;
     padding: 20px 10px;
     z-index: 100;
     display: -webkit-box;

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/swiper.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="img/icon/logo_transparent.png" type="image/x-icon">
+    <meta name="theme-color" content="#403c3b">
 
     <meta name="description" content="Доставка вкуснейших блюд за 60 минут">
     <meta name="keywords" content="#Гриль, Грил саранск, достака шаурмы саранск, Гриль экспресс, гамбургер сарсанск доставка">
@@ -33,16 +34,7 @@
     <a class="logo scroll-up">
       #ГРИЛЛЬ <br><span> экспресс</span>
     </a>
-    <div class="header__center">
-      <!-- <div class="header__search">
-        <a href="#">
-          <img src="img/icon/Location.svg" alt="Location">
-        </a>
-        <input type="search" name="search" id="suggest" placeholder="Введите адрес доставки: Саранск" maxlength="70">
-        <a href="#">
-          <img src="img/icon/Search.svg" alt="Search">
-        </a>
-      </div> -->
+    <div class="header__right">
       <div class="call">
         <a class="call__icon" href="tel:+7900123456">
           <img src="img/icon/Calling.svg" alt="call">
@@ -52,13 +44,13 @@
           +7 (917) 510-57-59
         </a>
       </div>
+      <button class="basket-button">
+        <p>Корзина</p>
+        <span></span>
+        <img src="img/icon/Buy.svg" alt="Buy">
+        <p class="basket-quantity">0</p>
+      </button>
     </div>
-    <button class="basket-button">
-      <p>Корзина</p>
-      <span></span>
-      <img src="img/icon/Buy.svg" alt="Buy">
-      <p class="basket-quantity">0</p>
-    </button>
   </div>
   <div class="popup">
     <div class="call">
@@ -306,14 +298,14 @@
         
 <section class="basket">
     <div class="basket-top">
-        <a href="index.html" class="basket-return">
+        <button class="basket-return">
             <div class="basket-return__arrow">
                 <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M0.46967 5.46967C0.176777 5.76256 0.176777 6.23744 0.46967 6.53033L5.24264 11.3033C5.53553 11.5962 6.01041 11.5962 6.3033 11.3033C6.59619 11.0104 6.59619 10.5355 6.3033 10.2426L2.06066 6L6.3033 1.75736C6.59619 1.46447 6.59619 0.989593 6.3033 0.6967C6.01041 0.403806 5.53553 0.403806 5.24264 0.696699L0.46967 5.46967ZM1.5 5.25L1 5.25L1 6.75L1.5 6.75L1.5 5.25Z" fill="white"/>
                 </svg>                        
             </div>
             к выбору блюда
-        </a>
+        </button>
         <div class="basket-title h2">
             <span></span> КОРЗИНА <p class="total-quantity-products">0</p>
         </div>
@@ -329,7 +321,8 @@
             <p class="totalEnough">
                 До бесплатной доставки не хватет: 
             </p>
-            <p class="total__need4free">0 <span> ₽</span></p>
+            <p class="total__need4free">0 </p>
+            <span class="total__need4free-rubles"> ₽</span>
             <p class="total__min">700</p>
         </div>
         <button class="total__checkout">

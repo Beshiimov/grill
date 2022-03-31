@@ -1,5 +1,5 @@
 const swiper = new Swiper('.swiper', {
-  speed: 2000,
+  speed: 1000,
   spaceBetween: 15,
   loop: true,
   loopFillGroupWithBlank: true,
@@ -54,7 +54,6 @@ basketButton.addEventListener(`click`, () => {
   basketWindow.classList.toggle(`_active`);
   scrollBlock();
 });
-
 
 
 
@@ -114,10 +113,33 @@ basketButton.addEventListener(`click`, () => {
       return acc + productPrice * quantity;
     }, 0);
 
+
     if (totalPriceDOMElement) {
-    totalPriceDOMElement.textContent = totalPrice;
-    }
+      totalPriceDOMElement.textContent = totalPrice;
+      }
+    minShippingPrice(totalPrice);
   };
+
+  const minShippingPrice = (totalPrice) => {
+    const totalEnough = basketWindow.querySelector(`.totalEnough`);
+    const notEnoughPriceDOMElement = basketWindow.querySelector(`.total__need4free`);
+    const notEnoughPriceDOMElementRubles = basketWindow.querySelector(`.total__need4free-rubles`);
+    const minShippingDOMElement = basketWindow.querySelector(`.total__min`);
+    let newQuantityNotEnough = 750;
+
+    if (newQuantityNotEnough > 0){
+      newQuantityNotEnough = minShippingDOMElement.textContent - totalPrice;
+      notEnoughPriceDOMElement.textContent = newQuantityNotEnough;
+      totalEnough.textContent = `До бесплатной доставки не хватет:`;
+      notEnoughPriceDOMElement.style.display = "inline-block";
+      notEnoughPriceDOMElementRubles.style.display = "inline-block";
+    }
+    if (newQuantityNotEnough <= 0) {
+      totalEnough.textContent = `У вас доставка будет бесплатной`;
+      notEnoughPriceDOMElement.style.display = "none";
+      notEnoughPriceDOMElementRubles.style.display = "none";
+    }
+  }
 
   const updateCartTotalItemsCounter = () => {
     const totalQuantity = Object.keys(cart).reduce((acc, id) => {
@@ -137,10 +159,13 @@ basketButton.addEventListener(`click`, () => {
     saveCart();
   };
 
-  const productDelete = (id) => {
+  const productDelete = (id, cartItemDOMElement) => {
     delete cart[id];
+    cartItemDOMElement.parentNode.removeChild(cartItemDOMElement);
+
     updateCart();
   };
+
 
   const addCartItem = (data) => {
     const { productName } = data;
@@ -160,6 +185,7 @@ basketButton.addEventListener(`click`, () => {
     const cartItemQuantityDOMElement = cartItemDOMElement.querySelector(`.quantity`);
     const cartItemPriceDOMElement = cartItemDOMElement.querySelector(`.snacks__price`);
 
+
     cart[id].quantity = quantity;
     cartItemQuantityDOMElement.textContent = quantity;
     cartItemPriceDOMElement.textContent = quantity * cart[id].productPrice;
@@ -167,16 +193,22 @@ basketButton.addEventListener(`click`, () => {
     updateCart();
   };
 
-  const minusQuantity = (id) => {
-    const newQuantity = cart[id].quantity - 1;
-    if (newQuantity >= 1) {
-      updateQuantity(id, newQuantity);
-    }
-  };
-
+  //46.30
   const plusQuantity = (id) => {
     const newQuantity = cart[id].quantity + 1;
     updateQuantity(id, newQuantity);
+  };
+
+  const minusQuantity = (id) => {
+    if (cart[id].quantity >= 1) {
+      const newQuantity = cart[id].quantity - 1;
+      updateQuantity(id, newQuantity);
+    }
+    if (cart[id].quantity === 0) {
+      const cartItemDOMElement = cartDOMElement.querySelector(`.${id}`);
+      productDelete(id, cartItemDOMElement);
+      updateCart();
+    }
   };
 
   const getProductData = (product) => {
@@ -218,8 +250,7 @@ basketButton.addEventListener(`click`, () => {
         e.preventDefault();
         const cartItemDOMElement = target.closest(`.product`);
         const productID = cartItemDOMElement.querySelector(`.product__title`).textContent.trim();
-        cartItemDOMElement.parentNode.removeChild(cartItemDOMElement);
-        productDelete(productID)
+        productDelete(productID, cartItemDOMElement);
       }
 
       if (target.classList.contains(`plus`)) {
@@ -244,55 +275,54 @@ basketButton.addEventListener(`click`, () => {
 
 
 
-// ymaps.ready(init);
+ymaps.ready(init);
 
-// function init() {
-//   var myMap = new ymaps.Map("map", {
-//       center: [54.193616, 45.160650],
-//       zoom: 17
-//     }, {
-//       searchControlProvider: 'yandex#search'
-//     }),
-//     myPlacemark = new ymaps.Placemark([54.193616, 45.160650], {
-//       // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
-//       balloonContentHeader: "#ГРИЛЛЬ экспресс",
-//       balloonContentBody: "улица Титова, 10с1",
-//       balloonContentFooter: "Мы здесь",
-//       hintContent: "Посмотреть адресс",
-//       size: 400,
-//     });
-//   myMap.geoObjects.add(myPlacemark);
-// };
+function init() {
+  var myMap = new ymaps.Map("map", {
+      center: [54.193616, 45.160650],
+      zoom: 17
+    }, {
+      searchControlProvider: 'yandex#search'
+    }),
+    myPlacemark = new ymaps.Placemark([54.193616, 45.160650], {
+      // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
+      balloonContentHeader: "#ГРИЛЛЬ экспресс",
+      balloonContentBody: "улица Титова, 10с1",
+      balloonContentFooter: "Мы здесь",
+      hintContent: "Посмотреть адресс",
+      size: 800,
+    });
+  myMap.geoObjects.add(myPlacemark);
+}
 
-
-//   //вывод запросов
-//   var suggestView1 = new ymaps.SuggestView('suggest');
-//   var arr = [
-//     "Саранск, улица"
-//   ];
-
-//   var find = function (arr, find) {
-//     return arr.filter(function (value) {
-//       return (value + "").toLowerCase().indexOf(find.toLowerCase()) != -1;
-//     });
-//   };
-//   var myProvider = {
-//     suggest: function (request, options) {
-//       var res = find(arr, request),
-//         arrayResult = [],
-//         results = Math.min(options.results, res.length);
-//       for (var i = 0; i < results; i++) {
-//         arrayResult.push({
-//           displayName: res[i],
-//           value: res[i]
-//         })
-//       }
-//       return ymaps.vow.resolve(arrayResult);
-//     }
-//   }
-//   var suggestView = new ymaps.SuggestView('suggest', {
-//     provider: myProvider,
-//     results: 3
-//   });
-// };
-
+  //
+  // //вывод запросов
+  // var suggestView1 = new ymaps.SuggestView('suggest');
+  // var arr = [
+  //   "Саранск, улица"
+  // ];
+  //
+  // var find = function (arr, find) {
+  //   return arr.filter(function (value) {
+  //     return (value + "").toLowerCase().indexOf(find.toLowerCase()) != -1;
+  //   });
+  // };
+  // var myProvider = {
+  //   suggest: function (request, options) {
+  //     var res = find(arr, request),
+  //       arrayResult = [],
+  //       results = Math.min(options.results, res.length);
+  //     for (var i = 0; i < results; i++) {
+  //       arrayResult.push({
+  //         displayName: res[i],
+  //         value: res[i]
+  //       })
+  //     }
+  //     return ymaps.vow.resolve(arrayResult);
+  //   }
+  // }
+  // var suggestView = new ymaps.SuggestView('suggest', {
+  //   provider: myProvider,
+  //   results: 3
+  // });
+  //
