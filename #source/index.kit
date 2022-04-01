@@ -44,7 +44,6 @@
             </div>
             <div class="bg-gradient"></div>
         </section>
-<!--        <div class="preloading"><div></div></div>-->
         <section class="category">
              <div class="categories"></div>
         </section>
@@ -56,7 +55,7 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide snacks">
                         <a href ="">
-                            <img src="img/cold-snacks/cold-snacks-1.jpg" alt="cold-snack">
+                            <img class="_preloading" data-src="img/cold-snacks/cold-snacks-1.jpg" src="img/icon/1x1.png" alt="cold-snack">
                         </a>
                         <div class="snacks__body">
                             <h3 class="snacks__title">Суп</h3>
@@ -82,14 +81,14 @@
                     </div>
                     <div class="swiper-slide snacks">
                         <a href ="">
-                            <img src="img/cold-snacks/cold-snacks-2.jpg" alt="cold-snack">
+                            <img class="_preloading" data-src="img/cold-snacks/cola.png" src="img/icon/1x1.png" alt="cold-snack">
                         </a>
                         <div class="snacks__body">
-                            <h3 class="snacks__title">Гусь</h3>
-                            <p class="snacks__about">Фаршированный гречневой кашей, курагой, апельсином и зеленым яблоком</p>
+                            <h3 class="snacks__title">Кола</h3>
+                            <p class="snacks__about">1,5 литра</p>
                             <div class="snacks__buttons">
                                 <span class="snacks__price">
-                                    500
+                                    119
                                 </span>
                                 <button class="snacks__basket basket__default basketDefault">
                                     <span class="basketDefault">В корзину</span>
@@ -103,78 +102,6 @@
                             <p class="snacks__mass">
                                 225
                             </p>
-                        </div>
-                        <div class="snacks-quantity"></div>
-                    </div>
-                    <div class="swiper-slide snacks">
-                        <a href ="">
-                            <img src="img/cold-snacks/cold-snacks-3.jpg" alt="cold-snack">
-                        </a>
-                        <div class="snacks__body">
-                            <h3 class="snacks__title">Бургер</h3>
-                            <p class="snacks__about">Рекомендую</p>
-                            <div class="snacks__buttons">
-                                <span class="snacks__price">
-                                    100
-                                </span>
-                                <button class="snacks__basket basket__default basketDefault">
-                                    <span class="basketDefault">В корзину</span>
-                                    <div class="basket__icon basketDefault">
-                                        <img class="basketDefault" src="img/icon/Buy.svg" alt="Buy">
-                                    </div>
-                                </button>
-                                <button class="snacks__basket minus" style="display: none;">-</button>
-                                <button class="snacks__basket plus" style="display: none;">+</button>
-                            </div>
-                            <p class="snacks__mass">
-                                150
-                            </p>
-                        </div>
-                        <div class="snacks-quantity"></div>
-                    </div>
-                    <div class="swiper-slide snacks">
-                        <a href ="">
-                            <img src="img/cold-snacks/cola.png" alt="cold-snack">
-                        </a>
-                        <div class="snacks__body">
-                            <h3 class="snacks__title">Кола</h3>
-                            <p class="snacks__about">1,5 литра</p>
-                            <div class="snacks__buttons">
-                                <span class="snacks__price">
-                                    109
-                                </span>
-                                <button class="snacks__basket basket__default basketDefault">
-                                    <span class="basketDefault">В корзину</span>
-                                    <div class="basket__icon basketDefault">
-                                        <img class="basketDefault" src="img/icon/Buy.svg" alt="Buy">
-                                    </div>
-                                </button>
-                                <button class="snacks__basket minus" style="display: none;">-</button>
-                                <button class="snacks__basket plus" style="display: none;">+</button>
-                            </div>
-                        </div>
-                        <div class="snacks-quantity"></div>
-                    </div>
-                    <div class="swiper-slide snacks">
-                        <a href ="">
-                            <img src="img/cold-snacks/kfc.jpg" alt="cold-snack">
-                        </a>
-                        <div class="snacks__body">
-                            <h3 class="snacks__title">KFC</h3>
-                            <p class="snacks__about">30 Штук</p>
-                            <div class="snacks__buttons">
-                                <span class="snacks__price">
-                                    75
-                                </span>
-                                <button class="snacks__basket basket__default basketDefault">
-                                    <span class="basketDefault">В корзину</span>
-                                    <div class="basket__icon basketDefault">
-                                        <img class="basketDefault" src="img/icon/Buy.svg" alt="Buy">
-                                    </div>
-                                </button>
-                                <button class="snacks__basket minus" style="display: none;">-</button>
-                                <button class="snacks__basket plus" style="display: none;">+</button>
-                            </div>
                         </div>
                         <div class="snacks-quantity"></div>
                     </div>
@@ -250,16 +177,16 @@
                 </div>
                 <div class="about__background">
                     <picture>
-                        <source type="image/webp" srcset="img/bg-about-us.webp">
-                        <source type="image/png" srcset="img/bg-about-us.png">
-                        <img src="img/bg-about-us.png" alt="Background-photo">
+                        <source type="image/webp" data-srcset="img/bg-about-us.webp" srcset="img/icon/1x1.png">
+                        <source type="image/png" data-srcset="img/bg-about-us.png" srcset="img/icon/1x1.png">
+                        <img data-src="img/bg-about-us.png" alt="Background-photo" src="img/icon/1x1.png">
                     </picture>
                     <div class="bg-gradient"></div>
                 </div>
             </div>
         </section>
-        <section class="map">
-            <div id="map"></div>
+        <section class="map _preload-section _preloading">
+
         </section>
         
         <!-- @import "basket.html" -->
@@ -268,6 +195,7 @@
 
     <!-- @import "footer.html" -->
     <script src="js/swiper.min.js"></script>
+    <script src="js/lazy-load.js"></script>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=4efb335a-a405-41a7-94e9-2ca5e54a5708" type="text/javascript"></script>
     <script src="js/script.js"></script>
 </body>

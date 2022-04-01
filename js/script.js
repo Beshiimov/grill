@@ -1,8 +1,8 @@
 const swiper = new Swiper('.swiper', {
   speed: 1000,
   spaceBetween: 15,
-  loop: true,
-  loopFillGroupWithBlank: true,
+  // loop: true,
+  // loopFillGroupWithBlank: true,
   slidesPerView: "auto",
   longSwipesMs: 300,
   touchRatio: 0.5,
@@ -275,25 +275,6 @@ basketButton.addEventListener(`click`, () => {
 
 
 
-ymaps.ready(init);
-
-function init() {
-  var myMap = new ymaps.Map("map", {
-      center: [54.193616, 45.160650],
-      zoom: 17
-    }, {
-      searchControlProvider: 'yandex#search'
-    }),
-    myPlacemark = new ymaps.Placemark([54.193616, 45.160650], {
-      // Чтобы балун и хинт открывались на метке, необходимо задать ей определенные свойства.
-      balloonContentHeader: "#ГРИЛЛЬ экспресс",
-      balloonContentBody: "улица Титова, 10с1",
-      balloonContentFooter: "Мы здесь",
-      hintContent: "Посмотреть адресс",
-      size: 800,
-    });
-  myMap.geoObjects.add(myPlacemark);
-}
 
   //
   // //вывод запросов
